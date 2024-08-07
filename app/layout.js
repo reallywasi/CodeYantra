@@ -17,6 +17,7 @@ export default function RootLayout({ children }) {
         <NextAuthProvider>
           <div className="max-w-3xl mx-auto">
             <Navbar />
+            <div className=" text-center font-extrabold py-10 text-xl">Real Time Monitoring Coding Platform</div>
             {children}
           </div>
         </NextAuthProvider>
