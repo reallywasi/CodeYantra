@@ -1,7 +1,13 @@
 // components/LandingPage.js
+"use client"
 import React from 'react';
-
+import Router from 'next/router';
 const LandingPage = () => {
+
+  const handleNavigate = () => {
+    router.push('/destination'); // Navigate to /destination page
+  };
+
   return (
     <div className="bg-gradient-to-r from-blue-400 to-purple-500 min-h-screen flex flex-col text-white">
       {/* Header */}
@@ -11,12 +17,30 @@ const LandingPage = () => {
           Empowering educators with real-time insights into students' coding activities.
         </p>
         <a
-          href="#features"
+          href="/coding"
           className="bg-yellow-400 text-gray-800 font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-300 transition duration-300"
         >
           Discover More
         </a>
       </header>
+<div className=' flex justify-center py-10'>
+<div className=' items-center px-10'>
+<a
+          href="/coding"
+          className="bg-black text-gray-100 font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-gray-800 transition duration-300"
+        >
+Start Coding Now
+        </a>
+</div>
+</div>
+
+
+      <button
+      onClick={handleNavigate}
+      className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+    >
+      Go to Destination
+    </button>
 
       {/* Features Section */}
       <section id="features" className="py-20 bg-white text-gray-800">
