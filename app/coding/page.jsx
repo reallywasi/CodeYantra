@@ -132,6 +132,7 @@ const CodingPage = () => {
           onChange={handleCodeChange}
           language="cpp" // Set language to C++
         />
+        
         <div className="mt-4 flex gap-4 px-2">
           <button
             className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
