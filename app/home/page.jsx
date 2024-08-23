@@ -1,5 +1,6 @@
 import React from 'react'
 import LandingPage from '@/components/LandingPage'
+import RankingList from '@/components/RankingList'
 function homepage() {
   return (
     <div className="relative h-screen -mt-24">
