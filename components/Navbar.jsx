@@ -315,8 +315,8 @@ export default function Navbar() {
 
   return (
     <div className="relative p-4 flex justify-between items-center shadow-md bg-white z-30">
-      <Link className="font-bold text-lg text-blue-700" href={"/"}>
-        GitBit
+      <Link className="font-bold text-lg text-red-600" href={"/"}>
+        CodeYantra
       </Link>
 
       {/* Desktop Navigation */}
@@ -340,7 +340,7 @@ export default function Navbar() {
             </Link>
             <button
               onClick={() => signOut()}
-              className="bg-slate-900 text-white px-4 py-2 rounded-md"
+              className="bg-red-600 text-white px-4 py-2 rounded-md"
             >
               Sign Out
             </button>

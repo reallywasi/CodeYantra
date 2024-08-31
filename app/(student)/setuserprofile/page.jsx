@@ -633,6 +633,11 @@ function UserProfile() {
           <h3 className="text-xl font-semibold text-green-600">
             Your profile has been successfully submitted!
           </h3>
+
+          <div> 
+          Go to Dashboard 
+          </div>
+
         </div>
       )}
     </div>
