@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const WhyChooseUs = () => {
   const features = [
@@ -26,30 +27,37 @@ const WhyChooseUs = () => {
     <section className="py-11 bg-gray-50">
    
               <div className="w-full bg-gray-50 py-20  px-20">
-      <div className="w-full max-w-5xl mx-auto bg-white p-12 rounded-lg shadow-lg text-center">
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-6 sm:text-5xl">
-          Skills Speak Louder Than Words
-        </h2>
-        <p className="text-lg leading-8 text-gray-600 mb-8">
-          We help students excel in coding rounds and sharpen their coding skills. We also assist faculty in conducting effective coding observations and curating insightful tests.
-        </p>
-    
-        <p className="text-sm font-medium text-gray-600 mb-4">
-Join a commmunity to compete collaborate and grow.
-        </p>
-        <div className="flex justify-center gap-6 mb-10">
-          <button className="px-14 py-4 bg-red-600 text-white text-lg font-semibold rounded-md shadow-md hover:bg-red-700 transition duration-300">
-            Sign Up
-          </button>
-          <button className="px-8 py-4 bg-white border border-gray-300 text-gray-900 text-lg font-semibold rounded-md shadow-md hover:bg-gray-100 transition duration-300">
-            Request Demo
-          </button>
-        </div>
-        <p className="text-lg font-semibold text-gray-900">
-          Join CodeYantra now — your own classroom coding platform.
-        </p>
-        
-      </div>
+
+<div className="w-full max-w-5xl mx-auto bg-white p-12 rounded-lg shadow-lg text-center">
+  <h2 className="text-4xl font-extrabold text-gray-900 mb-6 sm:text-5xl">
+    Skills Speak Louder Than Words
+  </h2>
+  <p className="text-lg leading-8 text-gray-600 mb-8">
+    We help students excel in coding rounds and sharpen their coding skills. We also assist faculty in conducting effective coding observations and curating insightful tests.
+  </p>
+
+  <p className="text-sm font-medium text-gray-600 mb-4">
+    Join a community to compete, collaborate, and grow.
+  </p>
+  <div className="flex justify-center gap-6 mb-10">
+    <Link 
+      href="/studentDashboard" 
+      className="px-14 py-4 bg-red-600 text-white text-lg font-semibold rounded-md shadow-md hover:bg-red-700 transition duration-300"
+    >
+      Sign Up
+    </Link>
+    <Link 
+      href="/studentDashboard" 
+      className="px-8 py-4 bg-white border border-gray-300 text-gray-900 text-lg font-semibold rounded-md shadow-md hover:bg-gray-100 transition duration-300"
+    >
+      Request Demo
+    </Link>
+  </div>
+  <p className="text-lg font-semibold text-gray-900">
+    Join CodeYantra now — your own classroom coding platform.
+  </p>
+</div>
+
       
     </div>
 

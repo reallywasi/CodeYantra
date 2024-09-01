@@ -323,19 +323,17 @@ export default function Navbar() {
       <div className="hidden md:flex space-x-6 items-center">
         {status === "authenticated" && (
           <>
-            <Link href="/profile" className="text-gray-700 hover:text-blue-700">
+            <Link href="/studentDashboard" className="text-gray-700 hover:text-blue-700">
               Profile
             </Link>
-            <Link href="/tests" className="text-gray-700 hover:text-blue-700">
-              Tests
+            <Link href="/studentDashboard/upcoming" className="text-gray-700 hover:text-blue-700">
+              Upcoming Observations
             </Link>
-            <Link href="/results" className="text-gray-700 hover:text-blue-700">
+            <Link href="/leaderboard" className="text-gray-700 hover:text-blue-700">
               Results
             </Link>
-            <Link href="/upcoming-tests" className="text-gray-700 hover:text-blue-700">
-              Upcoming Tests
-            </Link>
-            <Link href="/rankings" className="text-gray-700 hover:text-blue-700">
+     
+            <Link href="/leaderboard" className="text-gray-700 hover:text-blue-700">
               Rankings
             </Link>
             <button

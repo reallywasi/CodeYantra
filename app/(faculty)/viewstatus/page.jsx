@@ -1698,9 +1698,309 @@
 
 
 
+// "use client"; // Ensure this component is rendered client-side
+
+// import { useState } from 'react';
+
+// const ViewStatus = () => {
+//   const [selectedQuestion, setSelectedQuestion] = useState(1);
+//   const [selectedStatus, setSelectedStatus] = useState('Not Attended');
+//   const [selectedCode, setSelectedCode] = useState('');
+//   const [showModal, setShowModal] = useState(false);
+//   const [showShareModal, setShowShareModal] = useState(false); // New state for sharing modal
+//   const [selectedStudent, setSelectedStudent] = useState(null);
+//   const [marks, setMarks] = useState('');
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [viewingLeaderboard, setViewingLeaderboard] = useState(false);
+//   const [codeToShare, setCodeToShare] = useState('');
+//   const [studentsToShare, setStudentsToShare] = useState([]);
+
+//   // Hardcoded data for demonstration
+//   const questions = {
+//     1: [
+//       { id: 1, name: 'Aarav Patel', sapId: '202101', status: 'Not Attended', code: '/* C code to print Hello World */', submittedAt: '', marks: '' },
+//       { id: 2, name: 'Vivaan Sharma', sapId: '202102', status: 'Doing', code: '/* C code to print Hello World */', submittedAt: '', marks: '' },
+//       { id: 3, name: 'Aditya Singh', sapId: '202103', status: 'Done', code: '#include <stdio.h>\n\nint main() {\n    printf("Hello World");\n    return 0;\n}', submittedAt: '10:30 AM', marks: '85' },
+//     ],
+//     2: [
+//       { id: 4, name: 'Vihaan Kapoor', sapId: '202104', status: 'Done', code: '#include <stdio.h>\n\nint main() {\n    printf("Hello World");\n    return 0;\n}', submittedAt: '11:00 AM', marks: '90' },
+//       { id: 5, name: 'Reyansh Gupta', sapId: '202105', status: 'Doing', code: '#include <stdio.h>\n\nint main() {\n    printf("Hello World");\n    return 0;\n}', submittedAt: '', marks: '' },
+//     ],
+//   };
+
+//   const handleViewCode = (student) => {
+//     setSelectedStudent(student);
+//     setSelectedCode(student.code);
+//     setMarks(student.marks);
+//     setShowModal(true);
+//   };
+
+//   const handleMarksChange = (e) => {
+//     setMarks(e.target.value);
+//   };
+
+//   const handleSubmitMarks = () => {
+//     if (selectedStudent) {
+//       console.log(`Student ID: ${selectedStudent.id}, New Marks: ${marks}`);
+//       selectedStudent.marks = marks;
+//     }
+//     setShowModal(false);
+//   };
+
+//   const handleShareCode = (code) => {
+//     setCodeToShare(code);
+//     setShowShareModal(true);
+//   };
+
+//   const handleSelectStudent = (studentId) => {
+//     setStudentsToShare(prev =>
+//       prev.includes(studentId)
+//         ? prev.filter(id => id !== studentId)
+//         : [...prev, studentId]
+//     );
+//   };
+
+//   const handleShareCodeWithStudents = () => {
+//     console.log(`Code shared with students: ${studentsToShare.join(', ')}`);
+//     setShowShareModal(false);
+//     setStudentsToShare([]);
+//     setCodeToShare('');
+//   };
+
+//   const getStudentList = (status) => {
+//     return questions[selectedQuestion]
+//       .filter(student => student.status === status)
+//       .filter(student => student.name.toLowerCase().includes(searchQuery.toLowerCase()));
+//   };
+
+//   const getTotalCount = (status) => {
+//     return getStudentList(status).length;
+//   };
+
+//   const getLeaderboard = () => {
+//     return questions[selectedQuestion]
+//       .filter(student => student.status === 'Done')
+//       .sort((a, b) => parseInt(b.marks) - parseInt(a.marks))
+//       .filter(student => student.name.toLowerCase().includes(searchQuery.toLowerCase()));
+//   };
+
+//   const getAllStudents = () => {
+//     return questions[selectedQuestion]
+//       .filter(student => student.name.toLowerCase().includes(searchQuery.toLowerCase()));
+//   };
+
+//   return (
+//     <div className="flex h-screen font-sans bg-gray-50">
+//       <div className="w-1/4 bg-gray-800 p-4 border-r border-gray-700">
+//         <h2 className="text-xl font-semibold mb-6 text-white">Status</h2>
+//         <ul className="space-y-2">
+//           {['Not Attended', 'Doing', 'Done', 'Leaderboard'].map(status => (
+//             <li key={status}>
+//               <button
+//                 onClick={() => {
+//                   if (status === 'Leaderboard') {
+//                     setViewingLeaderboard(true);
+//                     setSelectedStatus('');
+//                   } else {
+//                     setSelectedStatus(status);
+//                     setViewingLeaderboard(false);
+//                   }
+//                 }}
+//                 className={`w-full px-4 py-2 text-left rounded-lg ${viewingLeaderboard ? (status === 'Leaderboard' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300') : (selectedStatus === status ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300')} hover:bg-red-500 transition-colors duration-300`}
+//               >
+//                 {status}
+//                 <span className="ml-2 text-sm">{status !== 'Leaderboard' && getTotalCount(status)}</span>
+//               </button>
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+
+//       <div className="w-3/4 p-8">
+//         <div className="mb-8">
+//           <h2 className="text-xl font-semibold mb-4 text-red-700">Questions</h2>
+//           <ul className="flex space-x-4 mb-6">
+//             {Object.keys(questions).map(questionId => (
+//               <li key={questionId}>
+//                 <button
+//                   onClick={() => setSelectedQuestion(parseInt(questionId))}
+//                   className={`px-4 py-2 rounded-lg ${selectedQuestion === parseInt(questionId) ? 'bg-red-800 text-white' : 'bg-gray-900 text-gray-300'} hover:bg-red-700 transition-colors duration-300`}
+//                 >
+//                   Question {questionId}
+//                 </button>
+//               </li>
+//             ))}
+//           </ul>
+
+//           <div className="mb-8">
+//             <input
+//               type="text"
+//               placeholder="Search students..."
+//               value={searchQuery}
+//               onChange={(e) => setSearchQuery(e.target.value)}
+//               className="w-full border border-gray-300 rounded-md p-2"
+//             />
+//           </div>
+
+//           <div className={`bg-white p-6 rounded-lg border border-gray-200 shadow-md`}>
+//             <h2 className="text-xl font-semibold mb-6 text-red-700">
+//               {viewingLeaderboard ? 'Leaderboard' : selectedStatus} <span className="text-gray-600 font-medium">{!viewingLeaderboard && `(${getTotalCount(selectedStatus)})`}</span>
+//             </h2>
+//             <div className="max-h-[400px] overflow-y-auto">
+//               <ul className="space-y-4">
+//                 {viewingLeaderboard ? getLeaderboard().slice(0, 10).map((student, index) => (
+//                   <li key={student.id} className={`p-4 border rounded-lg shadow-sm bg-red-50 border-red-300 text-red-800 flex items-center justify-between`}>
+//                     <div className="flex flex-col space-y-1">
+//                       <div className="flex items-center space-x-4">
+//                         <div className="font-semibold">{index + 1}. {student.name}</div>
+//                         <div className="text-sm text-gray-600">SAP ID: {student.sapId}</div>
+//                       </div>
+//                       <div className="text-xs text-gray-600">Marks: {student.marks}</div>
+//                     </div>
+//                     <div>
+//                       <button
+//                         onClick={() => handleViewCode(student)}
+//                         className="text-red-600 hover:text-red-800 font-medium text-sm mr-2"
+//                       >
+//                         View Code
+//                       </button>
+//                       <button
+//                         onClick={() => handleShareCode(student.code)}
+//                         className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+//                       >
+//                         Share Code
+//                       </button>
+//                     </div>
+//                   </li>
+//                 )) : getStudentList(selectedStatus).slice(0, 10).map(student => (
+//                   <li key={student.id} className={`p-4 border rounded-lg shadow-sm ${selectedStatus === 'Done' ? 'bg-green-50 border-green-300 text-green-800' : selectedStatus === 'Doing' ? 'bg-blue-50 border-blue-300 text-blue-800' : 'bg-gray-50 border-gray-300 text-gray-800'} flex items-center justify-between`}>
+//                     <div className="flex flex-col space-y-1">
+//                       <div className="flex items-center space-x-4">
+//                         <div className="font-semibold">{student.name}</div>
+//                         <div className="text-sm text-gray-600">SAP ID: {student.sapId}</div>
+//                       </div>
+//                       {student.status === 'Done' && <div className="text-xs text-gray-600">Marks: {student.marks}</div>}
+//                     </div>
+//                     <div>
+//                       <button
+//                         onClick={() => handleViewCode(student)}
+//                         className="text-red-600 hover:text-red-800 font-medium text-sm mr-2"
+//                       >
+//                         View Code
+//                       </button>
+//                       <button
+//                         onClick={() => handleShareCode(student.code)}
+//                         className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+//                       >
+//                         Share Code
+//                       </button>
+//                     </div>
+//                   </li>
+//                 ))}
+//               </ul>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* View Code Modal */}
+//       {showModal && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-300">
+//             <h2 className="text-xl font-semibold mb-4 text-red-700">{selectedStudent.name}'s Code</h2>
+//             <pre className="bg-gray-100 p-4 rounded-lg border text-sm mb-4 whitespace-pre-wrap">{selectedCode}</pre>
+//             <div className="mb-4">
+//               <label htmlFor="marks" className="block text-sm font-medium text-gray-700 mb-2">
+//                 Marks:
+//               </label>
+//               <input
+//                 type="text"
+//                 id="marks"
+//                 value={marks}
+//                 onChange={handleMarksChange}
+//                 className="w-full border border-gray-300 rounded-md p-2"
+//               />
+//             </div>
+//             <div className="flex justify-end space-x-4">
+//               <button
+//                 onClick={handleSubmitMarks}
+//                 className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors duration-300"
+//               >
+//                 Submit
+//               </button>
+//               <button
+//                 onClick={() => setShowModal(false)}
+//                 className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors duration-300"
+//               >
+//                 Close
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Share Code Modal */}
+//       {showShareModal && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-300">
+//             <h2 className="text-xl font-semibold mb-4 text-blue-700">Share Code</h2>
+//             <p className="mb-4">Select the students you want to share the code with:</p>
+//             <div className="mb-4 max-h-64 overflow-y-auto">
+//               {getAllStudents().map(student => (
+//                 <div key={student.id} className="flex items-center mb-2">
+//                   <input
+//                     type="checkbox"
+//                     checked={studentsToShare.includes(student.id)}
+//                     onChange={() => handleSelectStudent(student.id)}
+//                     className="mr-2"
+//                   />
+//                   <label className="text-sm text-gray-700">{student.name} (SAP ID: {student.sapId})</label>
+//                 </div>
+//               ))}
+//             </div>
+//             <div className="flex justify-end space-x-4">
+//               <button
+//                 onClick={handleShareCodeWithStudents}
+//                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+//               >
+//                 Share
+//               </button>
+//               <button
+//                 onClick={() => setShowShareModal(false)}
+//                 className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors duration-300"
+//               >
+//                 Cancel
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default ViewStatus;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 "use client"; // Ensure this component is rendered client-side
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const ViewStatus = () => {
   const [selectedQuestion, setSelectedQuestion] = useState(1);
@@ -1790,147 +2090,162 @@ const ViewStatus = () => {
   };
 
   return (
-    <div className="flex h-screen font-sans bg-gray-50">
-      <div className="w-1/4 bg-gray-800 p-4 border-r border-gray-700">
-        <h2 className="text-xl font-semibold mb-6 text-white">Status</h2>
-        <ul className="space-y-2">
-          {['Not Attended', 'Doing', 'Done', 'Leaderboard'].map(status => (
-            <li key={status}>
-              <button
-                onClick={() => {
-                  if (status === 'Leaderboard') {
-                    setViewingLeaderboard(true);
-                    setSelectedStatus('');
-                  } else {
-                    setSelectedStatus(status);
-                    setViewingLeaderboard(false);
-                  }
-                }}
-                className={`w-full px-4 py-2 text-left rounded-lg ${viewingLeaderboard ? (status === 'Leaderboard' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300') : (selectedStatus === status ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300')} hover:bg-red-500 transition-colors duration-300`}
-              >
-                {status}
-                <span className="ml-2 text-sm">{status !== 'Leaderboard' && getTotalCount(status)}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="w-3/4 p-8">
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4 text-red-700">Questions</h2>
-          <ul className="flex space-x-4 mb-6">
-            {Object.keys(questions).map(questionId => (
-              <li key={questionId}>
+    <div>
+      <div className="flex h-screen font-sans bg-gray-50">
+        <div className="w-1/4 bg-gray-800 p-4 border-r border-gray-700">
+          <h2 className="text-xl font-semibold mb-6 text-white">Status</h2>
+          <ul className="space-y-2">
+            {['Not Attended', 'Doing', 'Done', 'Leaderboard', 'Code Sharers'].map(status => (
+              <li key={status}>
                 <button
-                  onClick={() => setSelectedQuestion(parseInt(questionId))}
-                  className={`px-4 py-2 rounded-lg ${selectedQuestion === parseInt(questionId) ? 'bg-red-800 text-white' : 'bg-gray-900 text-gray-300'} hover:bg-red-700 transition-colors duration-300`}
+                  onClick={() => {
+                    if (status === 'Leaderboard') {
+                      setViewingLeaderboard(true);
+                      setSelectedStatus('');
+                    } else {
+                      setSelectedStatus(status);
+                      setViewingLeaderboard(false);
+                    }
+                  }}
+                  className={`w-full px-4 py-2 text-left rounded-lg ${viewingLeaderboard ? (status === 'Leaderboard' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300') : (selectedStatus === status ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300')} hover:bg-red-500 transition-colors duration-300`}
                 >
-                  Question {questionId}
+                  {status}
+                  <span className="ml-2 text-sm">{status !== 'Leaderboard' && getTotalCount(status)}</span>
                 </button>
               </li>
             ))}
           </ul>
+        </div>
 
+        <div className="w-3/4 p-8">
           <div className="mb-8">
-            <input
-              type="text"
-              placeholder="Search students..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
+            <div className="flex items-center justify-between p-4">
+              <h2 className="text-xl font-semibold text-red-700">
+                Questions
+              </h2>
+              <Link href="/facultydashboard">
+                <span className="text-xl font-semibold text-blue-900 hover:text-blue-800 cursor-pointer transition-colors duration-300">
+                  Dashboard
+                </span>
+              </Link>
+            </div>
+            <ul className="flex space-x-4 mb-6">
+              {Object.keys(questions).map(questionId => (
+                <li key={questionId}>
+                  <button
+                    onClick={() => setSelectedQuestion(parseInt(questionId))}
+                    className={`px-4 py-2 rounded-lg ${selectedQuestion === parseInt(questionId) ? 'bg-red-800 text-white' : 'bg-gray-900 text-gray-300'} hover:bg-red-700 transition-colors duration-300`}
+                  >
+                    Question {questionId}
+                  </button>
+                </li>
+              ))}
+            </ul>
 
-          <div className={`bg-white p-6 rounded-lg border border-gray-200 shadow-md`}>
-            <h2 className="text-xl font-semibold mb-6 text-red-700">
-              {viewingLeaderboard ? 'Leaderboard' : selectedStatus} <span className="text-gray-600 font-medium">{!viewingLeaderboard && `(${getTotalCount(selectedStatus)})`}</span>
-            </h2>
-            <div className="max-h-[400px] overflow-y-auto">
-              <ul className="space-y-4">
-                {viewingLeaderboard ? getLeaderboard().slice(0, 10).map((student, index) => (
-                  <li key={student.id} className={`p-4 border rounded-lg shadow-sm bg-red-50 border-red-300 text-red-800 flex items-center justify-between`}>
-                    <div className="flex flex-col space-y-1">
-                      <div className="flex items-center space-x-4">
-                        <div className="font-semibold">{index + 1}. {student.name}</div>
-                        <div className="text-sm text-gray-600">SAP ID: {student.sapId}</div>
+            <div className="mb-8">
+              <input
+                type="text"
+                placeholder="Search students..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+
+            <div className={`bg-white p-6 rounded-lg border border-gray-200 shadow-md`}>
+              <h2 className="text-xl font-semibold mb-6 text-red-700">
+                {viewingLeaderboard ? 'Leaderboard' : selectedStatus} <span className="text-gray-600 font-medium">{!viewingLeaderboard && `(${getTotalCount(selectedStatus)})`}</span>
+              </h2>
+              <div className="max-h-[400px] overflow-y-auto">
+                <ul className="space-y-4">
+                  {viewingLeaderboard ? getLeaderboard().slice(0, 10).map((student, index) => (
+                    <li key={student.id} className={`p-4 border rounded-lg shadow-sm bg-red-50 border-red-300 text-red-800 flex items-center justify-between`}>
+                      <div className="flex flex-col space-y-1">
+                        <div className="flex items-center space-x-4">
+                          <div className="font-semibold">{index + 1}. {student.name}</div>
+                          <div className="text-sm text-gray-600">SAP ID: {student.sapId}</div>
+                        </div>
+                        <div className="text-xs text-gray-600">Marks: {student.marks}</div>
                       </div>
-                      <div className="text-xs text-gray-600">Marks: {student.marks}</div>
-                    </div>
-                    <div>
-                      <button
-                        onClick={() => handleViewCode(student)}
-                        className="text-red-600 hover:text-red-800 font-medium text-sm mr-2"
-                      >
-                        View Code
-                      </button>
-                      <button
-                        onClick={() => handleShareCode(student.code)}
-                        className="text-blue-600 hover:text-blue-800 font-medium text-sm"
-                      >
-                        Share Code
-                      </button>
-                    </div>
-                  </li>
-                )) : getStudentList(selectedStatus).slice(0, 10).map(student => (
-                  <li key={student.id} className={`p-4 border rounded-lg shadow-sm ${selectedStatus === 'Done' ? 'bg-green-50 border-green-300 text-green-800' : selectedStatus === 'Doing' ? 'bg-blue-50 border-blue-300 text-blue-800' : 'bg-gray-50 border-gray-300 text-gray-800'} flex items-center justify-between`}>
-                    <div className="flex flex-col space-y-1">
-                      <div className="flex items-center space-x-4">
-                        <div className="font-semibold">{student.name}</div>
-                        <div className="text-sm text-gray-600">SAP ID: {student.sapId}</div>
+                      <div>
+                        <button
+                          onClick={() => handleViewCode(student)}
+                          className="text-red-600 hover:text-red-800 font-medium text-sm mr-2"
+                        >
+                          View Code
+                        </button>
+                        <button
+                          onClick={() => handleShareCode(student.code)}
+                          className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+                        >
+                          Share Code
+                        </button>
                       </div>
-                      {student.status === 'Done' && <div className="text-xs text-gray-600">Marks: {student.marks}</div>}
-                    </div>
-                    <div>
-                      <button
-                        onClick={() => handleViewCode(student)}
-                        className="text-red-600 hover:text-red-800 font-medium text-sm mr-2"
-                      >
-                        View Code
-                      </button>
-                      <button
-                        onClick={() => handleShareCode(student.code)}
-                        className="text-blue-600 hover:text-blue-800 font-medium text-sm"
-                      >
-                        Share Code
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  )) : getStudentList(selectedStatus).slice(0, 10).map(student => (
+                    <li key={student.id} className={`p-4 border rounded-lg shadow-sm ${selectedStatus === 'Done' ? 'bg-green-50 border-green-300 text-green-800' : 'bg-gray-50 border-gray-300 text-gray-800'}`}>
+                      <div className="flex flex-col space-y-1">
+                        <div className="flex items-center space-x-4">
+                          <div className="font-semibold">{student.name}</div>
+                          <div className="text-sm text-gray-600">SAP ID: {student.sapId}</div>
+                        </div>
+                        <div className="text-xs text-gray-600">Status: {student.status}</div>
+                        {student.submittedAt && (
+                          <div className="text-xs text-gray-600">Submitted At: {student.submittedAt}</div>
+                        )}
+                        {selectedStatus === 'Done' && (
+                          <div className="text-xs text-gray-600">Marks: {student.marks}</div>
+                        )}
+                      </div>
+                      <div>
+                        <button
+                          onClick={() => handleViewCode(student)}
+                          className="text-red-600 hover:text-red-800 font-medium text-sm mr-2"
+                        >
+                          View Code
+                        </button>
+                        <button
+                          onClick={() => handleShareCode(student.code)}
+                          className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+                        >
+                          Share Code
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* View Code Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-300">
-            <h2 className="text-xl font-semibold mb-4 text-red-700">{selectedStudent.name}'s Code</h2>
-            <pre className="bg-gray-100 p-4 rounded-lg border text-sm mb-4 whitespace-pre-wrap">{selectedCode}</pre>
-            <div className="mb-4">
-              <label htmlFor="marks" className="block text-sm font-medium text-gray-700 mb-2">
-                Marks:
-              </label>
-              <input
-                type="text"
-                id="marks"
-                value={marks}
-                onChange={handleMarksChange}
-                className="w-full border border-gray-300 rounded-md p-2"
-              />
-            </div>
-            <div className="flex justify-end space-x-4">
-              <button
-                onClick={handleSubmitMarks}
-                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors duration-300"
-              >
-                Submit
-              </button>
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg w-1/3">
+            <h3 className="text-lg font-semibold mb-4">Student Code</h3>
+            <pre className="whitespace-pre-wrap break-words bg-gray-100 p-4 rounded">{selectedCode}</pre>
+            <div className="mt-4">
+              {selectedStatus === 'Done' && (
+                <div>
+                  <label className="block text-sm font-medium mb-2">Marks:</label>
+                  <input
+                    type="text"
+                    value={marks}
+                    onChange={handleMarksChange}
+                    className="border border-gray-300 rounded-md p-2 w-full"
+                  />
+                  <button
+                    onClick={handleSubmitMarks}
+                    className="bg-red-600 text-white px-4 py-2 rounded mt-2 hover:bg-red-700 transition-colors duration-300"
+                  >
+                    Submit Marks
+                  </button>
+                </div>
+              )}
               <button
                 onClick={() => setShowModal(false)}
-                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors duration-300"
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded mt-4 hover:bg-gray-400 transition-colors duration-300"
               >
                 Close
               </button>
@@ -1939,39 +2254,38 @@ const ViewStatus = () => {
         </div>
       )}
 
-      {/* Share Code Modal */}
       {showShareModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-300">
-            <h2 className="text-xl font-semibold mb-4 text-blue-700">Share Code</h2>
-            <p className="mb-4">Select the students you want to share the code with:</p>
-            <div className="mb-4 max-h-64 overflow-y-auto">
-              {getAllStudents().map(student => (
-                <div key={student.id} className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    checked={studentsToShare.includes(student.id)}
-                    onChange={() => handleSelectStudent(student.id)}
-                    className="mr-2"
-                  />
-                  <label className="text-sm text-gray-700">{student.name} (SAP ID: {student.sapId})</label>
-                </div>
-              ))}
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg w-1/3">
+            <h3 className="text-lg font-semibold mb-4">Share Code</h3>
+            <pre className="whitespace-pre-wrap break-words bg-gray-100 p-4 rounded mb-4">{codeToShare}</pre>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Select Students to Share Code</label>
+              <ul className="space-y-2">
+                {getAllStudents().map(student => (
+                  <li key={student.id} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={studentsToShare.includes(student.id)}
+                      onChange={() => handleSelectStudent(student.id)}
+                    />
+                    <span className="ml-2">{student.name}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="flex justify-end space-x-4">
-              <button
-                onClick={handleShareCodeWithStudents}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-              >
-                Share
-              </button>
-              <button
-                onClick={() => setShowShareModal(false)}
-                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors duration-300"
-              >
-                Cancel
-              </button>
-            </div>
+            <button
+              onClick={handleShareCodeWithStudents}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
+            >
+              Share Code
+            </button>
+            <button
+              onClick={() => setShowShareModal(false)}
+              className="bg-gray-300 text-gray-800 px-4 py-2 rounded mt-2 hover:bg-gray-400 transition-colors duration-300"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
@@ -1980,4 +2294,328 @@ const ViewStatus = () => {
 };
 
 export default ViewStatus;
+
+
+
+
+//_____________________________________-- _______________-________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// "use client"; // Ensure this component is rendered client-side
+
+// import { useState } from 'react';
+
+// const ViewStatus = () => {
+//   const [selectedQuestion, setSelectedQuestion] = useState(1);
+//   const [selectedStatus, setSelectedStatus] = useState('Not Attended');
+//   const [selectedCode, setSelectedCode] = useState('');
+//   const [showModal, setShowModal] = useState(false);
+//   const [showShareModal, setShowShareModal] = useState(false);
+//   const [showSharedCodesList, setShowSharedCodesList] = useState(false);
+//   const [selectedStudent, setSelectedStudent] = useState(null);
+//   const [marks, setMarks] = useState('');
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [viewingLeaderboard, setViewingLeaderboard] = useState(false);
+//   const [codeToShare, setCodeToShare] = useState('');
+//   const [studentsToShare, setStudentsToShare] = useState([]);
+//   const [sharedCodes, setSharedCodes] = useState([]);
+
+//   // Hardcoded data for demonstration
+//   const questions = {
+//     1: [
+//       { id: 1, name: 'Aarav Patel', sapId: '202101', status: 'Not Attended', code: '/* C code to print Hello World */', submittedAt: '', marks: '' },
+//       { id: 2, name: 'Vivaan Sharma', sapId: '202102', status: 'Doing', code: '/* C code to print Hello World */', submittedAt: '', marks: '' },
+//       { id: 3, name: 'Aditya Singh', sapId: '202103', status: 'Done', code: '#include <stdio.h>\n\nint main() {\n    printf("Hello World");\n    return 0;\n}', submittedAt: '10:30 AM', marks: '85' },
+//     ],
+//     2: [
+//       { id: 4, name: 'Vihaan Kapoor', sapId: '202104', status: 'Done', code: '#include <stdio.h>\n\nint main() {\n    printf("Hello World");\n    return 0;\n}', submittedAt: '11:00 AM', marks: '90' },
+//       { id: 5, name: 'Reyansh Gupta', sapId: '202105', status: 'Doing', code: '#include <stdio.h>\n\nint main() {\n    printf("Hello World");\n    return 0;\n}', submittedAt: '', marks: '' },
+//     ],
+//   };
+
+//   const handleViewCode = (student) => {
+//     setSelectedStudent(student);
+//     setSelectedCode(student.code);
+//     setMarks(student.marks);
+//     setShowModal(true);
+//   };
+
+//   const handleMarksChange = (e) => {
+//     setMarks(e.target.value);
+//   };
+
+//   const handleSubmitMarks = () => {
+//     if (selectedStudent) {
+//       console.log(`Student ID: ${selectedStudent.id}, New Marks: ${marks}`);
+//       selectedStudent.marks = marks;
+//     }
+//     setShowModal(false);
+//   };
+
+//   const handleShareCode = (code) => {
+//     setCodeToShare(code);
+//     setShowShareModal(true);
+//   };
+
+//   const handleSelectStudent = (studentId) => {
+//     setStudentsToShare(prev =>
+//       prev.includes(studentId)
+//         ? prev.filter(id => id !== studentId)
+//         : [...prev, studentId]
+//     );
+//   };
+
+//   const handleShareCodeWithStudents = () => {
+//     console.log(`Code shared with students: ${studentsToShare.join(', ')}`);
+//     setSharedCodes(prev => [
+//       ...prev,
+//       { code: codeToShare, sharedWith: studentsToShare }
+//     ]);
+//     setShowShareModal(false);
+//     setStudentsToShare([]);
+//     setCodeToShare('');
+//   };
+
+//   const handleSharedCodesList = () => {
+//     setShowSharedCodesList(true);
+//     setViewingLeaderboard(false);
+//     setSelectedStatus('');
+//   };
+
+//   const getStudentList = (status) => {
+//     return questions[selectedQuestion]
+//       .filter(student => student.status === status)
+//       .filter(student => student.name.toLowerCase().includes(searchQuery.toLowerCase()));
+//   };
+
+//   const getTotalCount = (status) => {
+//     return getStudentList(status).length;
+//   };
+
+//   const getLeaderboard = () => {
+//     return questions[selectedQuestion]
+//       .filter(student => student.status === 'Done')
+//       .sort((a, b) => parseInt(b.marks) - parseInt(a.marks))
+//       .filter(student => student.name.toLowerCase().includes(searchQuery.toLowerCase()));
+//   };
+
+//   const getAllStudents = () => {
+//     return questions[selectedQuestion]
+//       .filter(student => student.name.toLowerCase().includes(searchQuery.toLowerCase()));
+//   };
+
+//   return (
+//     <div className="flex h-screen font-sans bg-gray-50">
+//       <div className="w-1/4 bg-gray-800 p-4 border-r border-gray-700">
+//         <h2 className="text-xl font-semibold mb-6 text-white">Status</h2>
+//         <ul className="space-y-2">
+//           {['Not Attended', 'Doing', 'Done', 'Leaderboard', 'Shared Codes List'].map(status => (
+//             <li key={status}>
+//               <button
+//                 onClick={() => {
+//                   if (status === 'Leaderboard') {
+//                     setViewingLeaderboard(true);
+//                     setSelectedStatus('');
+//                     setShowSharedCodesList(false);
+//                   } else if (status === 'Shared Codes List') {
+//                     handleSharedCodesList();
+//                   } else {
+//                     setSelectedStatus(status);
+//                     setViewingLeaderboard(false);
+//                     setShowSharedCodesList(false);
+//                   }
+//                 }}
+//                 className={`w-full px-4 py-2 text-left rounded-lg ${viewingLeaderboard ? (status === 'Leaderboard' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300') : (showSharedCodesList ? (status === 'Shared Codes List' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300') : (selectedStatus === status ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300'))} hover:bg-red-500 transition-colors duration-300`}
+//               >
+//                 {status}
+//                 <span className="ml-2 text-sm">{status !== 'Leaderboard' && status !== 'Shared Codes List' && getTotalCount(status)}</span>
+//               </button>
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+
+//       <div className="w-3/4 p-8">
+//         <div className="mb-8">
+//           <h2 className="text-xl font-semibold mb-4 text-red-700">Questions</h2>
+//           <ul className="flex space-x-4 mb-6">
+//             {Object.keys(questions).map(questionId => (
+//               <li key={questionId}>
+//                 <button
+//                   onClick={() => setSelectedQuestion(parseInt(questionId))}
+//                   className={`px-4 py-2 rounded-lg ${selectedQuestion === parseInt(questionId) ? 'bg-red-800 text-white' : 'bg-gray-900 text-gray-300'} hover:bg-red-700 transition-colors duration-300`}
+//                 >
+//                   Question {questionId}
+//                 </button>
+//               </li>
+//             ))}
+//           </ul>
+
+//           <div className="mb-8">
+//             <input
+//               type="text"
+//               placeholder="Search students..."
+//               value={searchQuery}
+//               onChange={(e) => setSearchQuery(e.target.value)}
+//               className="w-full border border-gray-300 rounded-md p-2"
+//             />
+//           </div>
+
+//           <div className={`bg-white p-6 rounded-lg border border-gray-200 shadow-md`}>
+//             <h2 className="text-xl font-semibold mb-6 text-red-700">
+//               {viewingLeaderboard ? 'Leaderboard' : showSharedCodesList ? 'Shared Codes List' : selectedStatus} 
+//               <span className="text-gray-600 font-medium">{!viewingLeaderboard && !showSharedCodesList && `(${getTotalCount(selectedStatus)})`}</span>
+//             </h2>
+//             <div className="max-h-[400px] overflow-y-auto">
+//               <ul className="space-y-4">
+//                 {showSharedCodesList ? sharedCodes.map((entry, index) => (
+//                   <li key={index} className="p-4 border rounded-lg shadow-sm bg-gray-50 border-gray-300 text-gray-800">
+//                     <div className="font-semibold mb-2">Code Shared:</div>
+//                     <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">{entry.code}</pre>
+//                     <div className="mt-2">
+//                       <div className="font-semibold">Shared With:</div>
+//                       <ul className="list-disc pl-5">
+//                         {entry.sharedWith.map(id => (
+//                           <li key={id}>Student {id}</li>
+//                         ))}
+//                       </ul>
+//                     </div>
+//                   </li>
+//                 )) : (viewingLeaderboard ? getLeaderboard().map(student => (
+//                   <li key={student.id} className="p-4 border rounded-lg shadow-sm bg-gray-50 border-gray-300 text-gray-800">
+//                     <div className="font-semibold mb-2">{student.name} (SAP ID: {student.sapId})</div>
+//                     <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">{student.code}</pre>
+//                     <div className="mt-2">Marks: {student.marks}</div>
+//                     <button
+//                       onClick={() => handleShareCode(student.code)}
+//                       className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+//                     >
+//                       Share Code
+//                     </button>
+//                   </li>
+//                 )) : getStudentList(selectedStatus).map(student => (
+//                   <li key={student.id} className="p-4 border rounded-lg shadow-sm bg-gray-50 border-gray-300 text-gray-800">
+//                     <div className="font-semibold mb-2">{student.name} (SAP ID: {student.sapId})</div>
+//                     <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">{student.code}</pre>
+//                     <div className="mt-2">
+//                       Status: {student.status} 
+//                       {student.submittedAt && ` (Submitted At: ${student.submittedAt})`}
+//                     </div>
+//                     {(selectedStatus === 'Done' || viewingLeaderboard) && (
+//                       <>
+//                         <button
+//                           onClick={() => handleViewCode(student)}
+//                           className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300"
+//                         >
+//                           View Code
+//                         </button>
+//                         {viewingLeaderboard && (
+//                           <button
+//                             onClick={() => handleShareCode(student.code)}
+//                             className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+//                           >
+//                             Share Code
+//                           </button>
+//                         )}
+//                       </>
+//                     )}
+//                   </li>
+//                 )))}
+//               </ul>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Modal for code details */}
+//       {showModal && (
+//         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+//           <div className="bg-white p-6 rounded-lg max-w-lg w-full">
+//             <h3 className="text-xl font-semibold mb-4">Code Details</h3>
+//             <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">{selectedCode}</pre>
+//             <div className="mt-4 flex items-center">
+//               <label className="mr-2 font-semibold">Marks:</label>
+//               <input
+//                 type="text"
+//                 value={marks}
+//                 onChange={handleMarksChange}
+//                 className="border border-gray-300 rounded-md p-2 w-24"
+//               />
+//             </div>
+//             <div className="mt-4 flex justify-end">
+//               <button
+//                 onClick={handleSubmitMarks}
+//                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+//               >
+//                 Submit Marks
+//               </button>
+//               <button
+//                 onClick={() => setShowModal(false)}
+//                 className="ml-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300"
+//               >
+//                 Close
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Modal for sharing code */}
+//       {showShareModal && (
+//         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+//           <div className="bg-white p-6 rounded-lg max-w-lg w-full">
+//             <h3 className="text-xl font-semibold mb-4">Share Code</h3>
+//             <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">{codeToShare}</pre>
+//             <div className="mt-4 mb-4">
+//               <div className="font-semibold mb-2">Select Students to Share With:</div>
+//               {getAllStudents().map(student => (
+//                 <div key={student.id} className="flex items-center mb-2">
+//                   <input
+//                     type="checkbox"
+//                     checked={studentsToShare.includes(student.id)}
+//                     onChange={() => handleSelectStudent(student.id)}
+//                     className="mr-2"
+//                   />
+//                   <label>{student.name} (SAP ID: {student.sapId})</label>
+//                 </div>
+//               ))}
+//             </div>
+//             <div className="flex justify-end">
+//               <button
+//                 onClick={handleShareCodeWithStudents}
+//                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+//               >
+//                 Share Code
+//               </button>
+//               <button
+//                 onClick={() => setShowShareModal(false)}
+//                 className="ml-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300"
+//               >
+//                 Close
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default ViewStatus;
+
 

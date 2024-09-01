@@ -1,562 +1,290 @@
-// "use client"
-// import React, { useState } from 'react';
-// import { Line, Bar, Doughnut, Radar, PolarArea, Bubble, Scatter, Area, Pie } from 'react-chartjs-2';
-// import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement, RadarController, PolarAreaController, BubbleController, ScatterController } from 'chart.js';
-// import Modal from 'react-modal';
+// import React from 'react';
+// import { FiLogOut, FiHome, FiCode, FiList, FiBarChart2, FiBell, FiSettings } from 'react-icons/fi';
+// import { BsFillPersonFill } from 'react-icons/bs';
+// import { AiFillStar } from 'react-icons/ai';
 
-
-// ChartJS.register(
-//     CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend,
-//     ArcElement, RadarController, PolarAreaController, BubbleController, ScatterController
-//   );
-// const Dashboard = () => {
-//   const [isProblemModalOpen, setIsProblemModalOpen] = useState(false);
-//   const [isContestModalOpen, setIsContestModalOpen] = useState(false);
-//   const [formData, setFormData] = useState({
-//     problemTitle: '',
-//     description: '',
-//     difficulty: 'Easy',
-//   });
-//   const [contestData, setContestData] = useState({
-//     contestTitle: '',
-//     date: '',
-//     duration: '',
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleContestChange = (e) => {
-//     const { name, value } = e.target;
-//     setContestData((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleSubmitProblem = (e) => {
-//     e.preventDefault();
-//     console.log('Problem Form submitted:', formData);
-//     setIsProblemModalOpen(false);
-//   };
-
-//   const handleSubmitContest = (e) => {
-//     e.preventDefault();
-//     console.log('Contest Form submitted:', contestData);
-//     setIsContestModalOpen(false);
-//   };
-
-//   const lineChartData = {
-//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-//     datasets: [{
-//       label: 'Monthly Sales',
-//       data: [30, 45, 60, 50, 70, 90, 100],
-//       borderColor: '#4A90E2',
-//       backgroundColor: 'rgba(74, 144, 226, 0.2)',
-//       fill: true,
-//       tension: 0.1,
-//     }]
-//   };
-  
-//   const barChartData = {
-//     labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-//     datasets: [{
-//       label: 'Quarterly Revenue',
-//       data: [5000, 7000, 6000, 8000],
-//       backgroundColor: '#E94E77',
-//     }]
-//   };
-  
-//   const doughnutChartData = {
-//     labels: ['Red', 'Blue', 'Yellow'],
-//     datasets: [{
-//       data: [300, 50, 100],
-//       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-//     }]
-//   };
-  
-//   const radarChartData = {
-//     labels: ['Strength', 'Speed', 'Endurance', 'Agility', 'Skill'],
-//     datasets: [{
-//       label: 'Player A',
-//       data: [6, 5, 7, 8, 5],
-//       backgroundColor: 'rgba(255, 99, 132, 0.2)',
-//       borderColor: '#FF6384',
-//       borderWidth: 1,
-//     }]
-//   };
-  
-//   const polarAreaChartData = {
-//     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//     datasets: [{
-//       data: [12, 19, 3, 5, 2, 3],
-//       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
-//     }]
-//   };
-  
-//   const bubbleChartData = {
-//     datasets: [{
-//       label: 'Demo Bubble Chart',
-//       data: [
-//         { x: 10, y: 20, r: 15 },
-//         { x: 15, y: 10, r: 20 },
-//         { x: 20, y: 30, r: 25 },
-//       ],
-//       backgroundColor: '#4A90E2',
-//     }]
-//   };
-  
-//   const scatterChartData = {
-//     datasets: [{
-//       label: 'Scatter Data',
-//       data: [
-//         { x: 10, y: 20 },
-//         { x: 15, y: 10 },
-//         { x: 20, y: 30 },
-//       ],
-//       backgroundColor: '#E94E77',
-//     }]
-//   };
-  
-//   const areaChartData = {
-//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-//     datasets: [{
-//       label: 'Yearly Growth',
-//       data: [20, 40, 60, 70, 80, 90, 100],
-//       backgroundColor: 'rgba(74, 144, 226, 0.3)',
-//       borderColor: '#4A90E2',
-//       fill: true,
-//     }]
-//   };
-  
-//   const pieChartData = {
-//     labels: ['Red', 'Blue', 'Yellow'],
-//     datasets: [{
-//       data: [300, 50, 100],
-//       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-//     }]
-//   };
+// const StudentDashboard = () => {
 //   return (
-//     <div className="flex h-screen bg-black text-white">
-//       {/* Sidebar */}
-//       <aside className="w-64 bg-gray-800 p-4">
-//         <h1 className="text-2xl font-bold mb-6">Coding Contest</h1>
-//         <nav>
-//           <ul>
-//             <li className="mb-4">
-//               <a href="#overview" className="hover:bg-gray-700 p-2 rounded block">Overview</a>
+//     <div className="min-h-screen flex flex-col bg-gray-100">
+//       {/* Header */}
+//       <header className="bg-white shadow-md p-4 flex justify-between items-center">
+//         <div className="text-xl font-semibold text-blue-700">CodeYantra Student Dashboard</div>
+//         <button className="flex items-center text-gray-600 hover:text-blue-600">
+//           <FiLogOut className="mr-2" /> Logout
+//         </button>
+//       </header>
+
+//       {/* Main Content */}
+//       <div className="flex flex-1">
+//         {/* Sidebar */}
+//         <nav className="bg-white w-72 p-6 shadow-md">
+//           <ul className="space-y-6">
+//             {/* Dashboard Home */}
+//             <li>
+//               <a href="#" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+//                 <FiHome className="mr-2 text-xl" /> Dashboard Home
+//               </a>
 //             </li>
-//             <li className="mb-4">
-//               <a href="#problems" className="hover:bg-gray-700 p-2 rounded block">Problems</a>
+//             {/* My Code */}
+//             <li>
+//               <a href="/mycode" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+//                 <FiCode className="mr-2 text-xl" /> My Code
+//               </a>
 //             </li>
-//             <li className="mb-4">
-//               <a href="#contests" className="hover:bg-gray-700 p-2 rounded block">Contests</a>
+//             {/* Leaderboard */}
+//             <li>
+//               <a href="/leaderboard" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+//                 <FiBarChart2 className="mr-2 text-xl" /> Leaderboard
+//               </a>
 //             </li>
-//             <li className="mb-4">
-//               <a href="#statistics" className="hover:bg-gray-700 p-2 rounded block">Statistics</a>
+//             {/* Feedback */}
+//             <li>
+//               <a href="/feedback" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+//                 <FiList className="mr-2 text-xl" /> Feedback
+//                 <span className="ml-2 bg-red-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full">3</span>
+//               </a>
 //             </li>
-//             <li className="mb-4">
-//               <a href="#settings" className="hover:bg-gray-700 p-2 rounded block">Settings</a>
+//             {/* Settings */}
+//             <li>
+//               <a href="#" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+//                 <FiSettings className="mr-2 text-xl" /> Settings
+//               </a>
+//             </li>
+//             {/* Additional Menu Items */}
+//             <li className="mt-6 border-t border-gray-200 pt-4">
+//               <h3 className="text-sm font-semibold text-gray-600">Quick Links</h3>
+//               <ul className="space-y-4 mt-4">
+//                 <li>
+//                   <a href="/resources" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+//                     <AiFillStar className="mr-2 text-xl" /> Resources
+//                   </a>
+//                 </li>
+//                 <li>
+//                   <a href="/support" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+//                     <FiBell className="mr-2 text-xl" /> Support
+//                   </a>
+//                 </li>
+//               </ul>
 //             </li>
 //           </ul>
 //         </nav>
-//       </aside>
 
-//       <div className="flex-1 flex flex-col">
-//         {/* Top Bar */}
-//         <header className="bg-gray-900 p-4 flex justify-between items-center">
-//           <h2 className="text-xl font-semibold">Dashboard</h2>
-//           <div className="flex items-center">
-//             <button className="relative mr-4">
-//               <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-2 py-1">5</span>
-//               <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path d="M16 17h-1v-6h1v6zm-5 0H9v-6h2v6zm-1-8h2v2h-2v-2zm0 4h2v2h-2v-2z"></path>
-//               </svg>
-//             </button>
-//             <button className="bg-blue-600 text-white py-2 px-4 rounded">Log Out</button>
-//           </div>
-//         </header>
+//         {/* Main Dashboard Content */}
+        // <main className="flex-1 p-8">
+        //   {/* Profile Overview */}
+        //   <div className="bg-white shadow-lg rounded-lg p-6 mb-6 flex items-center space-x-6">
+        //     <div className="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center text-4xl text-gray-600">
+        //       <BsFillPersonFill />
+        //     </div>
+        //     <div>
+        //       <div className="text-2xl font-semibold text-gray-700">John Doe</div>
+        //       <div className="text-gray-500">ID: 123456</div>
+        //       <div className="text-gray-500">Batch: 2023</div>
+        //       <div className="text-gray-500">Current Rank: 7</div>
+        //     </div>
+        //   </div>
 
-//         {/* Main Content */}
-//         <main className="flex-1 p-6">
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//             {/* Recent Activities */}
-//             <section id="overview" className="bg-gray-800 p-4 rounded-lg shadow-md">
-//               <h3 className="text-lg font-semibold mb-4">Recent Activities</h3>
-//               <ul>
-//                 <li className="border-b border-gray-700 py-2">User1 solved Problem A</li>
-//                 <li className="border-b border-gray-700 py-2">User2 submitted code for Problem B</li>
-//                 <li className="border-b border-gray-700 py-2">User3 started contest C</li>
-//               </ul>
-//             </section>
+        //   {/* Quick Stats Cards */}
+        //   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        //     <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+        //       <div className="text-xl font-semibold text-gray-700">Total Submissions</div>
+        //       <div className="ml-auto text-3xl font-bold text-blue-600">45</div>
+        //     </div>
+        //     <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+        //       <div className="text-xl font-semibold text-gray-700">Observations Received</div>
+        //       <div className="ml-auto text-3xl font-bold text-green-600">12</div>
+        //     </div>
+        //     <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+        //       <div className="text-xl font-semibold text-gray-700">Pending Feedback</div>
+        //       <div className="ml-auto text-3xl font-bold text-red-600">3</div>
+        //     </div>
+        //   </div>
 
-//             {/* Coding Problems */}
-//             <section id="problems" className="bg-gray-800 p-4 rounded-lg shadow-md">
-//               <h3 className="text-lg font-semibold mb-4">Coding Problems</h3>
-//               <button
-//                 onClick={() => setIsProblemModalOpen(true)}
-//                 className="bg-blue-600 text-white py-2 px-4 rounded mb-4"
-//               >
-//                 Add New Problem
-//               </button>
-//               <ul>
-//                 <li className="border-b border-gray-700 py-2">Problem A - Easy</li>
-//                 <li className="border-b border-gray-700 py-2">Problem B - Medium</li>
-//                 <li className="border-b border-gray-700 py-2">Problem C - Hard</li>
-//               </ul>
-//             </section>
+        //   {/* Course Progress */}
+        //   <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+        //     <h2 className="text-xl font-semibold text-gray-700 mb-4">Course Progress</h2>
+        //     <div className="flex items-center justify-between mb-2">
+        //       <div className="text-gray-700">Coding Challenges</div>
+        //       <div className="text-gray-500">80%</div>
+        //     </div>
+        //     <div className="w-full bg-gray-200 rounded-full h-2.5">
+        //       <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '80%' }}></div>
+        //     </div>
+        //   </div>
 
-//             {/* Upcoming Contests */}
-//             <section id="contests" className="bg-gray-800 p-4 rounded-lg shadow-md">
-//               <h3 className="text-lg font-semibold mb-4">Upcoming Contests</h3>
-//               <button
-//                 onClick={() => setIsContestModalOpen(true)}
-//                 className="bg-green-600 text-white py-2 px-4 rounded mb-4"
-//               >
-//                 Add New Contest
-//               </button>
-//               <ul>
-//                 <li className="border-b border-gray-700 py-2">Contest A - Aug 15, 2024</li>
-//                 <li className="border-b border-gray-700 py-2">Contest B - Aug 20, 2024</li>
-//                 <li className="border-b border-gray-700 py-2">Contest C - Aug 25, 2024</li>
-//               </ul>
-//             </section>
+        //   {/* Upcoming Deadlines */}
+        //   <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+        //     <h2 className="text-xl font-semibold text-gray-700 mb-4">Upcoming Deadlines</h2>
+        //     <ul className="space-y-4">
+        //       <li className="flex items-center justify-between text-gray-700">
+        //         <div>Algorithm Assignment</div>
+        //         <div className="text-sm text-gray-500">Due: 2nd Sep</div>
+        //       </li>
+        //       <li className="flex items-center justify-between text-gray-700">
+        //         <div>Data Structures Quiz</div>
+        //         <div className="text-sm text-gray-500">Due: 5th Sep</div>
+        //       </li>
+        //       <li className="flex items-center justify-between text-gray-700">
+        //         <div>Project Submission</div>
+        //         <div className="text-sm text-gray-500">Due: 10th Sep</div>
+        //       </li>
+        //     </ul>
+        //   </div>
 
-//             {/* Statistics */}
-//             <section id="statistics" className="bg-gray-800 p-4 rounded-lg shadow-md">
-//               <h3 className="text-lg font-semibold mb-4">Statistics</h3>
-//               <div className="mb-6">
-//                 <Line data={lineChartData} options={{ responsive: true }} />
-//               </div>
-//               <div className="mb-6">
-//                 <Bar data={barChartData} options={{ responsive: true }} />
-//               </div>
-//               <div className="flex flex-col">
-//                 <div className="mb-4">
-//                   <span className="font-semibold">Total Problems Solved:</span> 123
-//                 </div>
-//                 <div>
-//                   <span className="font-semibold">Current Streak:</span> 7 days
-//                 </div>
-//               </div>
-//             </section>
+        //   {/* Recent Notifications */}
+        //   <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+        //     <h2 className="text-xl font-semibold text-gray-700 mb-4">Recent Notifications</h2>
+        //     <ul className="space-y-4">
+        //       <li className="flex items-center text-gray-700">
+        //         <FiBell className="mr-2 text-blue-600" />
+        //         <div>Your code has received feedback from the faculty.</div>
+        //       </li>
+        //       <li className="flex items-center text-gray-700">
+        //         <FiBell className="mr-2 text-blue-600" />
+        //         <div>New coding challenges are available.</div>
+        //       </li>
+        //       <li className="flex items-center text-gray-700">
+        //         <FiBell className="mr-2 text-blue-600" />
+        //         <div>Upcoming deadlines updated.</div>
+        //       </li>
+        //     </ul>
+        //   </div>
 
-//             {/* Settings */}
-//             <section id="settings" className="bg-gray-800 p-4 rounded-lg shadow-md">
-//               <h3 className="text-lg font-semibold mb-4">Settings</h3>
-//               <div className="mb-4">
-//                 <button className="bg-blue-600 text-white py-2 px-4 rounded">Update Profile</button>
-//               </div>
-//               <div>
-//                 <button className="bg-gray-600 text-white py-2 px-4 rounded">Change Password</button>
-//               </div>
-//             </section>
-//           </div>
-//         </main>
-
-//         {/* Modals */}
-//         {/* Add Problem Modal */}
-//         <Modal isOpen={isProblemModalOpen} onRequestClose={() => setIsProblemModalOpen(false)} ariaHideApp={false}>
-//           <div className="bg-gray-800 p-6 rounded-lg">
-//             <h2 className="text-2xl font-bold mb-4">Add New Problem</h2>
-//             <form onSubmit={handleSubmitProblem} className="space-y-4">
-//               <div>
-//                 <label className="block mb-1">Problem Title</label>
-//                 <input
-//                   type="text"
-//                   name="problemTitle"
-//                   value={formData.problemTitle}
-//                   onChange={handleInputChange}
-//                   className="w-full p-2 rounded bg-gray-700 border border-gray-600"
-//                 />
-//               </div>
-//               <div>
-//                 <label className="block mb-1">Description</label>
-//                 <textarea
-//                   name="description"
-//                   value={formData.description}
-//                   onChange={handleInputChange}
-//                   className="w-full p-2 rounded bg-gray-700 border border-gray-600"
-//                   rows="4"
-//                 ></textarea>
-//               </div>
-//               <div>
-//                 <label className="block mb-1">Difficulty</label>
-//                 <select
-//                   name="difficulty"
-//                   value={formData.difficulty}
-//                   onChange={handleInputChange}
-//                   className="w-full p-2 rounded bg-gray-700 border border-gray-600"
-//                 >
-//                   <option value="Easy">Easy</option>
-//                   <option value="Medium">Medium</option>
-//                   <option value="Hard">Hard</option>
-//                 </select>
-//               </div>
-//               <div className="flex justify-end space-x-4">
-//                 <button
-//                   type="button"
-//                   onClick={() => setIsProblemModalOpen(false)}
-//                   className="bg-gray-600 text-white py-2 px-4 rounded"
-//                 >
-//                   Cancel
-//                 </button>
-//                 <button
-//                   type="submit"
-//                   className="bg-blue-600 text-white py-2 px-4 rounded"
-//                 >
-//                   Submit
-//                 </button>
-//               </div>
-//             </form>
-//           </div>
-//         </Modal>
-
-//         {/* Add Contest Modal */}
-//         <Modal isOpen={isContestModalOpen} onRequestClose={() => setIsContestModalOpen(false)} ariaHideApp={false}>
-//           <div className="bg-gray-800 p-6 rounded-lg">
-//             <h2 className="text-2xl font-bold mb-4">Add New Contest</h2>
-//             <form onSubmit={handleSubmitContest} className="space-y-4">
-//               <div>
-//                 <label className="block mb-1">Contest Title</label>
-//                 <input
-//                   type="text"
-//                   name="contestTitle"
-//                   value={contestData.contestTitle}
-//                   onChange={handleContestChange}
-//                   className="w-full p-2 rounded bg-gray-700 border border-gray-600"
-//                 />
-//               </div>
-//               <div>
-//                 <label className="block mb-1">Date</label>
-//                 <input
-//                   type="date"
-//                   name="date"
-//                   value={contestData.date}
-//                   onChange={handleContestChange}
-//                   className="w-full p-2 rounded bg-gray-700 border border-gray-600"
-//                 />
-//               </div>
-//               <div>
-//                 <label className="block mb-1">Duration (hours)</label>
-//                 <input
-//                   type="number"
-//                   name="duration"
-//                   value={contestData.duration}
-//                   onChange={handleContestChange}
-//                   className="w-full p-2 rounded bg-gray-700 border border-gray-600"
-//                 />
-//               </div>
-//               <div className="flex justify-end space-x-4">
-//                 <button
-//                   type="button"
-//                   onClick={() => setIsContestModalOpen(false)}
-//                   className="bg-gray-600 text-white py-2 px-4 rounded"
-//                 >
-//                   Cancel
-//                 </button>
-//                 <button
-//                   type="submit"
-//                   className="bg-green-600 text-white py-2 px-4 rounded"
-//                 >
-//                   Submit
-//                 </button>
-//               </div>
-//             </form>
-//           </div>
-//         </Modal>
+        //   {/* Quick Actions */}
+        //   <div className="bg-white shadow-lg rounded-lg p-6">
+        //     <h2 className="text-xl font-semibold text-gray-700 mb-4">Quick Actions</h2>
+        //     <div className="flex space-x-4">
+        //       <button className="bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+        //         View Submissions
+        //       </button>
+        //       <button className="bg-green-900 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors duration-300">
+        //         Submit Code
+        //       </button>
+        //       <button className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors duration-300">
+        //         View Leaderboard
+        //       </button>
+        //     </div>
+        //   </div>
+        // </main>
 //       </div>
-      
+
+//       {/* Footer */}
+//       <footer className="bg-white p-4 shadow-md text-center text-gray-500">
+//         © 2024 CodeYantra. All rights reserved.
+//       </footer>
 //     </div>
 //   );
 // };
 
-// export default Dashboard;
-"use client"
-import React from 'react';
-import { Line, Bar, Doughnut, Radar, PolarArea, Bubble, Scatter, Pie } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  RadarController,
-  PolarAreaController,
-  BubbleController,
-  ScatterController,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+// export default StudentDashboard;
 
-// Register all components
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  RadarController,
-  PolarAreaController,
-  BubbleController,
-  ScatterController,
-  Title,
-  Tooltip,
-  Legend
-);
+import React from 'react'
+import { FiLogOut, FiHome, FiCode, FiList, FiBarChart2, FiBell, FiSettings } from 'react-icons/fi';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { AiFillStar } from 'react-icons/ai';
+import UpcomingObservations from '@/components/upcomingObservations';
+function page() {
+  return (
+    <div>
+              <main className="flex-1 p-8">
+          {/* Profile Overview */}
+          <div className="bg-white shadow-lg rounded-lg p-6 mb-6 flex items-center space-x-6">
+            <div className="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center text-4xl text-gray-600">
+              <BsFillPersonFill />
+            </div>
+            <div>
+              <div className="text-2xl font-semibold text-gray-700">John Doe</div>
+              <div className="text-gray-500">ID: 123456</div>
+              <div className="text-gray-500">Batch: 2023</div>
+              <div className="text-gray-500">Current Rank: 7</div>
+            </div>
+          </div>
 
-// Data for charts
-const lineChartData = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  datasets: [{
-    label: 'Monthly Sales',
-    data: [30, 45, 60, 50, 70, 90, 100],
-    borderColor: '#4A90E2',
-    backgroundColor: 'rgba(74, 144, 226, 0.2)',
-    fill: true,
-    tension: 0.1,
-  }]
-};
+          {/* Quick Stats Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+              <div className="text-xl font-semibold text-gray-700">Total Submissions</div>
+              <div className="ml-auto text-3xl font-bold text-blue-600">45</div>
+            </div>
+            <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+              <div className="text-xl font-semibold text-gray-700">Observations Received</div>
+              <div className="ml-auto text-3xl font-bold text-green-600">12</div>
+            </div>
+            <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+              <div className="text-xl font-semibold text-gray-700">Pending Feedback</div>
+              <div className="ml-auto text-3xl font-bold text-red-600">3</div>
+            </div>
+          </div>
 
-const barChartData = {
-  labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-  datasets: [{
-    label: 'Quarterly Revenue',
-    data: [5000, 7000, 6000, 8000],
-    backgroundColor: '#E94E77',
-  }]
-};
+          {/* Course Progress */}
+          <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Course Progress</h2>
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-gray-700">Coding Challenges</div>
+              <div className="text-gray-500">80%</div>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '80%' }}></div>
+            </div>
+          </div>
 
-const doughnutChartData = {
-  labels: ['Red', 'Blue', 'Yellow'],
-  datasets: [{
-    data: [300, 50, 100],
-    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-  }]
-};
+          {/* Upcoming Deadlines */}
+          <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Upcoming Deadlines</h2>
+            <ul className="space-y-4">
+              <li className="flex items-center justify-between text-gray-700">
+                <div>Algorithm Assignment</div>
+                <div className="text-sm text-gray-500">Due: 2nd Sep</div>
+              </li>
+              <li className="flex items-center justify-between text-gray-700">
+                <div>Data Structures Quiz</div>
+                <div className="text-sm text-gray-500">Due: 5th Sep</div>
+              </li>
+              <li className="flex items-center justify-between text-gray-700">
+                <div>Project Submission</div>
+                <div className="text-sm text-gray-500">Due: 10th Sep</div>
+              </li>
+            </ul>
+          </div>
 
-const radarChartData = {
-  labels: ['Strength', 'Speed', 'Endurance', 'Agility', 'Skill'],
-  datasets: [{
-    label: 'Player A',
-    data: [6, 5, 7, 8, 5],
-    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-    borderColor: '#FF6384',
-    borderWidth: 1,
-  }]
-};
+          {/* Recent Notifications */}
+          <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Recent Notifications</h2>
+            <ul className="space-y-4">
+              <li className="flex items-center text-gray-700">
+                <FiBell className="mr-2 text-blue-600" />
+                <div>Your code has received feedback from the faculty.</div>
+              </li>
+              <li className="flex items-center text-gray-700">
+                <FiBell className="mr-2 text-blue-600" />
+                <div>New coding challenges are available.</div>
+              </li>
+              <li className="flex items-center text-gray-700">
+                <FiBell className="mr-2 text-blue-600" />
+                <div>Upcoming deadlines updated.</div>
+              </li>
+            </ul>
+          </div>
 
-const polarAreaChartData = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  datasets: [{
-    data: [12, 19, 3, 5, 2, 3],
-    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
-  }]
-};
-
-const bubbleChartData = {
-  datasets: [{
-    label: 'Demo Bubble Chart',
-    data: [
-      { x: 10, y: 20, r: 15 },
-      { x: 15, y: 10, r: 20 },
-      { x: 20, y: 30, r: 25 },
-    ],
-    backgroundColor: '#4A90E2',
-  }]
-};
-
-const scatterChartData = {
-  datasets: [{
-    label: 'Scatter Data',
-    data: [
-      { x: 10, y: 20 },
-      { x: 15, y: 10 },
-      { x: 20, y: 30 },
-    ],
-    backgroundColor: '#E94E77',
-  }]
-};
-
-const areaChartData = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  datasets: [{
-    label: 'Yearly Growth',
-    data: [20, 40, 60, 70, 80, 90, 100],
-    backgroundColor: 'rgba(74, 144, 226, 0.3)',
-    borderColor: '#4A90E2',
-    fill: true,
-  }]
-};
-
-const pieChartData = {
-  labels: ['Red', 'Blue', 'Yellow'],
-  datasets: [{
-    data: [300, 50, 100],
-    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-  }]
-};
-
-const Charts = () => (
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {/* Line Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Line Chart</h3>
-      <Line data={lineChartData} options={{ responsive: true }} />
+          {/* Quick Actions */}
+          <div className="bg-white shadow-lg rounded-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Quick Actions</h2>
+            <div className="flex space-x-4">
+              <button className="bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                View Submissions
+              </button>
+              <button className="bg-green-900 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors duration-300">
+                Submit Code
+              </button>
+              <button className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors duration-300">
+                View Leaderboard
+              </button>
+            </div>
+          </div>
+        </main>
     </div>
+  )
+}
 
-    {/* Bar Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Bar Chart</h3>
-      <Bar data={barChartData} options={{ responsive: true }} />
-    </div>
-
-    {/* Doughnut Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Doughnut Chart</h3>
-      <Doughnut data={doughnutChartData} options={{ responsive: true }} />
-    </div>
-
-    {/* Radar Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Radar Chart</h3>
-      <Radar data={radarChartData} options={{ responsive: true }} />
-    </div>
-
-    {/* Polar Area Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Polar Area Chart</h3>
-      <PolarArea data={polarAreaChartData} options={{ responsive: true }} />
-    </div>
-
-    {/* Bubble Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Bubble Chart</h3>
-      <Bubble data={bubbleChartData} options={{ responsive: true }} />
-    </div>
-
-    {/* Scatter Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Scatter Chart</h3>
-      <Scatter data={scatterChartData} options={{ responsive: true }} />
-    </div>
-
-    {/* Area Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Area Chart</h3>
-      <Line data={areaChartData} options={{ responsive: true }} />
-    </div>
-
-    {/* Pie Chart */}
-    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Pie Chart</h3>
-      <Pie data={pieChartData} options={{ responsive: true }} />
-    </div>
-  </div>
-);
-
-export default Charts;
+export default page
 

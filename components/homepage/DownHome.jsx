@@ -232,7 +232,7 @@ function DownHome() {
         <p className="text-lg md:text-xl mb-8 md:mb-12 max-w-3xl mx-auto">
           Join us today and experience the best in coding education with real-time feedback, AI-enabled assessments, and a competitive environment. Don’t miss out on enhancing your coding skills and achieving your goals!
         </p>
-        <Link href="/get-started">
+        <Link href="/studentDashboard">
           <span className="inline-block bg-white text-red-500 font-semibold py-4 px-8 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300 text-lg cursor-pointer">
             Get Started
           </span>

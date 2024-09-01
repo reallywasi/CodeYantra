@@ -16,13 +16,13 @@ function AICodeEnhancements() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 mb-8">
               <a
-                href="#start"
+                href="/studentDashboard"
                 className="inline-block px-8 py-4 bg-red-600 text-white text-lg font-semibold rounded-md shadow-md hover:bg-red-700 transition duration-300 transform hover:scale-105"
               >
                 Start Coding
               </a>
               <a
-                href="#learn-more"
+                href="/"
                 className="inline-block px-8 py-4 bg-white border border-gray-300 text-gray-900 text-lg font-semibold rounded-md shadow-md hover:bg-gray-100 transition duration-300 transform hover:scale-105"
               >
                 Learn More

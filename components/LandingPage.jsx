@@ -101,7 +101,7 @@ Start Coding Now
           and enhance the educational experience for both teachers and students.
         </p>
         <a
-          href="#contact"
+          href="/studentDashboard"
           className="bg-yellow-400 text-gray-800 font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-300 transition duration-300"
         >
           Get Started

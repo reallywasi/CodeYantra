@@ -81,10 +81,10 @@ const CodeYantraFeatures = () => {
             Join our platform today and take your coding skills to the next level. Whether you’re looking to start coding or want to join our community, we’ve got you covered.
           </p>
           <div className="flex flex-col md:flex-row justify-center gap-6">
-            <Link href="/start-coding" className="inline-block bg-red-600 text-white font-semibold py-4 px-12 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 text-lg text-center transform hover:scale-105">
+            <Link href="/studentDashboard" className="inline-block bg-red-600 text-white font-semibold py-4 px-12 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 text-lg text-center transform hover:scale-105">
               Start Coding
             </Link>
-            <Link href="/signup" className="inline-block bg-red-600 text-white font-semibold py-4 px-12 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 text-lg text-center transform hover:scale-105">
+            <Link href="/studentDashboard" className="inline-block bg-red-600 text-white font-semibold py-4 px-12 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 text-lg text-center transform hover:scale-105">
               Sign Up
             </Link>
           </div>

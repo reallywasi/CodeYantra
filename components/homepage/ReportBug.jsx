@@ -19,7 +19,7 @@ function ReportBug() {
               Your feedback helps us improve the platform and provide a better experience for everyone.
             </p>
             <a
-              href="mailto:support@codeyantra.com"
+              href="mailto:wasi.110709@stu.upes.ac.in"
               className="bg-red-500 text-white py-2 px-6 rounded-full hover:bg-red-600 transition duration-300"
             >
               Report a Bug
