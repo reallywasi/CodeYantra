@@ -27,7 +27,7 @@ export default User;
 //       type: String,
 //       required: true,
 //     },
-//     officialEmail: {
+//     uniemail: {
 //       type: String,
 //       required: true,
 //       unique: true,  // Ensures that official email is unique

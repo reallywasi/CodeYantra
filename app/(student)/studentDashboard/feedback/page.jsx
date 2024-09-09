@@ -1,4 +1,5 @@
-"use client"
+
+"use client";
 import { useState } from 'react';
 
 const FeedbackForm = () => {
@@ -16,8 +17,29 @@ const FeedbackForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form Data Submitted:', formData);
+    try {
+      const response = await fetch('http://localhost:5000/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log('Feedback submitted successfully');
+        setFormData({
+          responseQuality: '',
+          userExperience: '',
+          overallSatisfaction: '',
+          comments: ''
+        });
+      } else {
+        console.error('Failed to submit feedback');
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+    }
   };
 
   return (
