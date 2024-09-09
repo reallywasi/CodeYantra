@@ -1,7 +1,7 @@
 // backend/models/studentProfile.js
 const mongoose = require('mongoose');
 
-const studentProfileSchema = new mongoose.Schema({
+const facultyProfileSchema = new mongoose.Schema({
   // _id: String, 
   fullName: String,
   batch: String,
@@ -15,6 +15,6 @@ const studentProfileSchema = new mongoose.Schema({
 
 });
 
-const StudentProfile = mongoose.model('StudentProfile', studentProfileSchema);
+const FacultyProfile = mongoose.model('FacultyProfile', facultyProfileSchema);
 
-module.exports = StudentProfile;
+module.exports = FacultyProfile;

@@ -1,4 +1,4 @@
-// models/Feedback.js
+// backend/models/Feedback.js
 const mongoose = require('mongoose');
 
 const feedbackSchema = new mongoose.Schema({
@@ -23,6 +23,6 @@ const feedbackSchema = new mongoose.Schema({
   },
 });
 
-const Feedback = mongoose.model('StudentFeedback', feedbackSchema);
+const Feedback = mongoose.model('Feedback', feedbackSchema); // Changed model name to 'Feedback'
 
 module.exports = Feedback;

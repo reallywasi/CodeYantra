@@ -1,6 +1,6 @@
 // components/layout.jsx
 import React from 'react';
-import { FiLogOut, FiHome, FiFileText, FiPlusCircle, FiDatabase, FiSettings,FiBell  } from 'react-icons/fi';
+import { FiLogOut, FiHome, FiFileText, FiPlusCircle, FiDatabase, FiSettings,FiBell ,FiList } from 'react-icons/fi';
 import Link from 'next/link';
 import { AiFillStar } from 'react-icons/ai';
 
@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
               </Link>
             </li>
             <li>
-              <Link href="/GiveObservation" className="flex items-center text-gray-700 hover:text-red-600">
+              <Link href="/ObservationDetails" className="flex items-center text-gray-700 hover:text-red-600">
                 <FiPlusCircle className="mr-2" /> Create Observation
               </Link>
             </li>
@@ -41,9 +41,15 @@ const Layout = ({ children }) => {
               </Link>
             </li>
             <li>
-              <Link href="/settings" className="flex items-center text-gray-700 hover:text-red-600">
-                <FiSettings className="mr-2" /> Settings
-              </Link>
+              <a href="/facultyDashboard/feedback" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+                <FiList className="mr-2 text-xl" /> Feedback
+                <span className="ml-2 bg-red-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full">3</span>
+              </a>
+            </li>
+            <li>
+              <a href="/facultyDashboard/viewFacultyProfile" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300">
+                <FiSettings className="mr-2 text-xl" /> View Profile
+              </a>
             </li>
             <li className="mt-6 border-t border-gray-200 pt-4">
               <h3 className="text-sm font-semibold text-gray-600">Quick Links</h3>

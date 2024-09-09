@@ -31,7 +31,8 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config');
 const studentRoutes = require('./routes/studentRoutes');
-
+const feedbackRoutes=require('./routes/feedbackRoutes');
+const facultyRoutes = require('./routes/facultyRoutes');
 const app = express();
 
 // Connect to MongoDB
@@ -43,6 +44,8 @@ app.use(express.json());  // To parse JSON bodies
 
 // Routes
 app.use('/api/student', studentRoutes);
+app.use('/api/feedback',feedbackRoutes);
+app.use('/api/faculty',facultyRoutes);
 
 // Start the server
 const PORT = 5000;
