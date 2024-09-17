@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { NextAuthProvider } from "./Providers";
+import Footer from "@/components/homepage/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,9 +16,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
-          <div className="max-w-3xl mx-auto">
+          <div className=" mx-auto">
             <Navbar />
-            <div className=" text-center font-extrabold py-10 text-xl">Real Time Monitoring Coding Platform</div>
+           
             {children}
           </div>
         </NextAuthProvider>
