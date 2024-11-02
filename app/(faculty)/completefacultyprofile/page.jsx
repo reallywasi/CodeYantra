@@ -1,10 +1,12 @@
 
 
 "use client";
+
+
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import Image from "next/image";
-
+import axios from 'axios';
 function FacultyProfile() {
   const { data: session } = useSession();
   const [fullName, setFullName] = useState(session?.user?.name || "");
@@ -16,6 +18,28 @@ function FacultyProfile() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
+
+  const handleConfirmSubmission = async () => {
+    setShowConfirmation(false);
+    setIsSubmitted(true);
+    setShowProfile(false);
+  
+    const facultyData = {
+      fullName,
+      sapId,
+      designation,
+      universityEmail,
+      batches,
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:5000/api/faculty', facultyData); // Adjust the URL if necessary
+      console.log(response.data); // Handle success response
+    } catch (error) {
+      console.error('Error submitting faculty data:', error);
+    }
+  };
+  
   const handleViewProfile = (e) => {
     e.preventDefault();
     setShowProfile(true);
@@ -26,19 +50,6 @@ function FacultyProfile() {
     setShowConfirmation(true);
   };
 
-  const handleConfirmSubmission = () => {
-    setShowConfirmation(false);
-    setIsSubmitted(true);
-    setShowProfile(false);
-    console.log({
-      fullName,
-      sapId,
-      designation,
-      universityEmail,
-      batches,
-    });
-    // API call to submit the data to your backend
-  };
 
   const handleCancelSubmission = () => {
     setShowConfirmation(false);

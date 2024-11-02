@@ -9,5 +9,5 @@ const facultySchema = new mongoose.Schema({
   batches: { type: String, required: true },
 }, { timestamps: true });
 
-const Faculty = mongoose.model('Faculty', facultySchema);
+const Faculty = mongoose.model('Faculty', facultySchema,'facultyprofiles');
 module.exports = Faculty;
