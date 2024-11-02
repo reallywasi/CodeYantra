@@ -1,15 +1,17 @@
+
+
 "use client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import Image from "next/image";
 
 function FacultyProfile() {
   const { data: session } = useSession();
   const [fullName, setFullName] = useState(session?.user?.name || "");
-  const [email, setEmail] = useState(session?.user?.email || "");
-  const [universityEmail, setUniversityEmail] = useState("");
   const [sapId, setSapId] = useState("");
-  const [batches, setBatches] = useState([]);
-  const [course, setCourse] = useState("");
+  const [designation, setDesignation] = useState("");
+  const [universityEmail, setUniversityEmail] = useState("");
+  const [batches, setBatches] = useState("");
   const [showProfile, setShowProfile] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -30,13 +32,12 @@ function FacultyProfile() {
     setShowProfile(false);
     console.log({
       fullName,
-      email,
-      universityEmail,
       sapId,
+      designation,
+      universityEmail,
       batches,
-      course,
     });
-    // You can add your API call here to submit the data to your backend
+    // API call to submit the data to your backend
   };
 
   const handleCancelSubmission = () => {
@@ -48,228 +49,227 @@ function FacultyProfile() {
     setIsSubmitted(false);
   };
 
-  const handleBatchChange = (e) => {
-    const value = e.target.value;
-    setBatches(value.split(",").map((batch) => batch.trim()));
-  };
-
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-8 bg-white shadow-2xl rounded-lg">
-      {session?.user?.image && (
-        <div className="flex justify-center mb-8">
-          <img
-            src={session.user.image}
-            alt={session.user.name}
-            className="rounded-full w-32 h-32"
+    <div className="flex justify-center items-center min-h-screen bg-light-red">
+      <div className="max-w-5xl w-full p-8 bg-red-100 rounded-lg shadow-lg">
+        <h1 className="text-4xl font-bold text-center mb-8">
+          <span className="text-red-600">Code</span>
+          <span className="text-black">Yantra</span>
+        </h1>
+
+        <div className="flex flex-col md:flex-row items-center justify-center gap-12">
+          {/* Image Section */}
+          <Image
+            src="/joinus2.png" // Path relative to the public folder
+            alt="Join Us"
+            width={400}
+            height={300}
+            priority // Ensures this image loads early
+            className="rounded-lg shadow-lg"
           />
-        </div>
-      )}
-      {!isSubmitted && !showProfile && (
-        <form>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="mb-4">
-              <label
-                htmlFor="fullName"
-                className="block text-sm font-medium text-gray-600"
-              >
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="fullName"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter full name"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-600"
-              >
-                Personal Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter personal email"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="universityEmail"
-                className="block text-sm font-medium text-gray-600"
-              >
-                University Email
-              </label>
-              <input
-                type="email"
-                id="universityEmail"
-                value={universityEmail}
-                onChange={(e) => setUniversityEmail(e.target.value)}
-                className="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter university email"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="sapId"
-                className="block text-sm font-medium text-gray-600"
-              >
-                SAP ID
-              </label>
-              <input
-                type="text"
-                id="sapId"
-                value={sapId}
-                onChange={(e) => setSapId(e.target.value)}
-                className="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter SAP ID"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="batches"
-                className="block text-sm font-medium text-gray-600"
-              >
-                Batches
-              </label>
-              <input
-                type="text"
-                id="batches"
-                value={batches.join(", ")}
-                onChange={handleBatchChange}
-                className="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter batches (comma-separated)"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="course"
-                className="block text-sm font-medium text-gray-600"
-              >
-                Course
-              </label>
-              <select
-                id="course"
-                value={course}
-                onChange={(e) => setCourse(e.target.value)}
-                className="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              >
-                <option value="">Select course</option>
-                <option value="AIML">AIML</option>
-                <option value="DevOps">DevOps</option>
-                <option value="CCVT">CCVT</option>
-                <option value="Full Stack AI">Full Stack AI</option>
-                <option value="Big Data">Big Data</option>
-                <option value="Data Science">Data Science</option>
-              </select>
-            </div>
-          </div>
-          <button
-            onClick={handleViewProfile}
-            className="w-full mt-6 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
-          >
-            View Profile
-          </button>
-        </form>
-      )}
 
-      {showProfile && !isSubmitted && (
-        <div>
-          <h3 className="text-xl font-semibold text-center mb-6 text-gray-700">
-            Profile Preview
-          </h3>
-          <div className="p-6 bg-gray-100 rounded-md shadow-md">
-            <p className="text-lg">
-              <strong>Full Name:</strong> {fullName}
-            </p>
-            <p className="text-lg">
-              <strong>Personal Email:</strong> {email}
-            </p>
-            <p className="text-lg">
-              <strong>University Email:</strong> {universityEmail}
-            </p>
-            <p className="text-lg">
-              <strong>SAP ID:</strong> {sapId}
-            </p>
-            <p className="text-lg">
-              <strong>Batches:</strong> {batches.join(", ")}
-            </p>
-            <p className="text-lg">
-              <strong>Course:</strong> {course}
-            </p>
-          </div>
-          <div className="flex justify-between mt-6">
-            <button
-              onClick={handleEdit}
-              className="bg-yellow-500 text-white p-3 rounded-md hover:bg-yellow-600 transition duration-300"
-            >
-              Edit
-            </button>
-            <button
-              onClick={handleSubmit}
-              className="bg-green-600 text-white p-3 rounded-md hover:bg-green-700 transition duration-300"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      )}
+          {/* Form Section */}
+          <div className="flex-1">
+            {!isSubmitted && !showProfile && (
+              <form>
+                <div className="grid grid-cols-1 gap-6">
+                  <div>
+                    <label
+                      htmlFor="fullName"
+                      className="block text-md font-medium text-red-900"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      className="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-900"
+                      placeholder="Enter full name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="sapId"
+                      className="block  text-md font-medium text-red-900"
+                    >
+                      SAP ID (Unique)
+                    </label>
+                    <input
+                      type="text"
+                      id="sapId"
+                      value={sapId}
+                      onChange={(e) => setSapId(e.target.value)}
+                      className="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-900"
+                      placeholder="Enter unique SAP ID"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="designation"
+                      className="block text-md font-medium text-red-900"
+                    >
+                      Designation
+                    </label>
+                    <select
+                      id="designation"
+                      value={designation}
+                      onChange={(e) => setDesignation(e.target.value)}
+                      className="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-900"
+                      required
+                    >
+                      <option value="">Select designation</option>
+                      <option value="Associate Professor">Associate Professor</option>
+                      <option value="Senior Associate Professor">Senior Associate Professor</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="universityEmail"
+                      className="block text-md font-medium text-red-900"
+                    >
+                      University Email
+                    </label>
+                    <input
+                      type="email"
+                      id="universityEmail"
+                      value={universityEmail}
+                      onChange={(e) => setUniversityEmail(e.target.value)}
+                      className="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-900"
+                      placeholder="Enter university email"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="batches"
+                      className="block text-md font-medium text-red-900"
+                    >
+                      Batches You Teach
+                    </label>
+                    <select
+                      id="batches"
+                      value={batches}
+                      onChange={(e) => setBatches(e.target.value)}
+                      className="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-900"
+                      required
+                    >
+                      <option value="">Select batch</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                    </select>
+                  </div>
+                </div>
 
-      {showConfirmation && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">
-              Confirm Submission
-            </h3>
-            <p className="text-gray-700">
-              Are you sure you want to submit these details? You won't be able
-              to edit them afterward.
-            </p>
-            <div className="flex justify-end mt-6">
-              <button
-                onClick={handleCancelSubmission}
-                className="bg-red-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-red-600 transition duration-300"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleConfirmSubmission}
-                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-300"
-              >
-                Confirm
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+                <button
+                  onClick={handleViewProfile}
+                  className="w-full mt-8 bg-red-900 text-white p-3 rounded-md hover:bg-red-800 transition duration-300"
+                >
+                  View Profile
+                </button>
+              </form>
+            )}
 
-      {isSubmitted && (
-        <div className="text-center mt-6">
-          <h3 className="text-xl font-semibold text-green-600">
-            Your profile has been successfully submitted!
-          </h3>
-          <div>
-            <a
-              href="/dashboard"
-              className="text-blue-600 hover:underline mt-4 inline-block"
-            >
-              Go to Dashboard
-            </a>
+            {showProfile && !isSubmitted && (
+  <div className="mt-10 p-8 rounded-2xl shadow-sm max-w-2xl mx-auto">
+    <h3 className="text-3xl font-bold text-center text-black-700 mb-8 tracking-wide">
+      Profile Preview
+    </h3>
+    <div className="overflow-x-auto">
+      <table className="min-w-full border border-gray-300">
+      <tbody>
+  <tr>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">Full Name</td>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{fullName}</td>
+  </tr>
+  <tr>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">SAP ID</td>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{sapId}</td>
+  </tr>
+  <tr>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">Designation</td>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{designation}</td>
+  </tr>
+  <tr>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">University Email</td>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{universityEmail}</td>
+  </tr>
+  <tr>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">Batches</td>
+    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{batches}</td>
+  </tr>
+</tbody>
+
+
+
+      </table>
+    </div>
+    <div className="flex justify-center space-x-6 mt-8">
+      <button
+        onClick={handleEdit}
+        className="py-2 px-12 text-lg font-semibold text-white bg-blue-900 rounded-md shadow-md hover:bg-blue-800 transition duration-300 ease-in-out"
+      >
+        Edit
+      </button>
+      <button
+        onClick={handleSubmit}
+        className="py-2 px-10 text-lg font-semibold text-white bg-red-900 rounded-md shadow-md hover:bg-red-800 transition duration-300 ease-in-out"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+)}
+
+
+
+            {showConfirmation && (
+              <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+                <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+                  <h3 className="text-xl font-bold text-red-800 mb-4">
+                    Confirm Submission
+                  </h3>
+                  <p className="text-gray-700">
+                    Are you sure you want to submit these details? 
+                  </p>
+                  <div className="flex justify-end mt-6">
+                    <button
+                      onClick={handleCancelSubmission}
+                      className="bg-red-900 text-white px-4 py-2 rounded-md mr-4 hover:bg-red-800 transition duration-300"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleConfirmSubmission}
+                      className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition duration-300"
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isSubmitted && (
+              <div className="text-center mt-8">
+                <h3 className="text-xl font-semibold text-green-600">
+                  Your profile has been successfully submitted!
+                </h3>
+                <a
+                  href="/dashboard"
+                  className="text-blue-800 hover:underline mt-4 inline-block"
+                >
+                  Go to Dashboard
+                </a>
+              </div>
+            )}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
