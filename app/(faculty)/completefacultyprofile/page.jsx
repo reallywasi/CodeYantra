@@ -187,38 +187,50 @@ function FacultyProfile() {
 
             {showProfile && !isSubmitted && (
   <div className="mt-10 p-8 rounded-2xl shadow-sm max-w-2xl mx-auto">
-    <h3 className="text-3xl font-bold text-center text-black-700 mb-8 tracking-wide">
-      Profile Preview
-    </h3>
+  <div className="flex flex-col items-center">
+  {/* Avatar */}
+  <div className="w-48 h-48 mb-4 rounded-full overflow-hidden border-1 border-blue-900">
+    <Image
+      src="/teacherx.png" // Path to the image in the public folder
+      alt="User Avatar"
+      width={300} // Set width as needed
+      height={300} // Set height as needed
+      className="w-full h-full object-cover"
+    />
+  </div>
+  <div className="text-center text-2xl font-extrabold mt-0">
+     {fullName}
+  </div>
+</div>
+
+    
+    {/* Profile Table */}
     <div className="overflow-x-auto">
+
       <table className="min-w-full border border-gray-300">
-      <tbody>
-  <tr>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">Full Name</td>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{fullName}</td>
-  </tr>
-  <tr>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">SAP ID</td>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{sapId}</td>
-  </tr>
-  <tr>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">Designation</td>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{designation}</td>
-  </tr>
-  <tr>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">University Email</td>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{universityEmail}</td>
-  </tr>
-  <tr>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">Batches</td>
-    <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{batches}</td>
-  </tr>
-</tbody>
-
-
-
+        <tbody>
+       
+          <tr>
+            <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">SAP ID</td>
+            <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{sapId}</td>
+          </tr>
+          <tr>
+            <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">Designation</td>
+            <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{designation}</td>
+          </tr>
+          <tr>
+            <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">University Email</td>
+            <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{universityEmail}</td>
+          </tr>
+          <tr>
+            <td className="py-4 px-6 border border-gray-300 text-lg text-white bg-red-900">Batches</td>
+            <td className="py-4 px-6 border border-gray-300 text-lg text-red-700 bg-blue-100">{batches}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
+    
+    {/* Buttons */}
     <div className="flex justify-center space-x-6 mt-8">
       <button
         onClick={handleEdit}
@@ -235,6 +247,7 @@ function FacultyProfile() {
     </div>
   </div>
 )}
+
 
 
 
