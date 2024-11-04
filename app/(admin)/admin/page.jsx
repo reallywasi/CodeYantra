@@ -323,6 +323,14 @@ const AdminPanel = () => {
           <p className="mt-2 text-gray-600 text-center">Details of the number of faculty per course.</p>
         </div>
       </div>
+
+
+
+
+
+
+
+      
     </div>
   );
 };

@@ -169,9 +169,11 @@ function FacultyProfile() {
                       required
                     >
                       <option value="">Select batch</option>
-                      <option value="2022">2022</option>
-                      <option value="2023">2023</option>
-                      <option value="2024">2024</option>
+                      <option value="B1">B1</option>
+                      <option value="B2">B2</option>
+                      <option value="B3">B3</option>
+                      <option value="B4">B4</option>
+                      <option value="B5">B5</option>
                     </select>
                   </div>
                 </div>
