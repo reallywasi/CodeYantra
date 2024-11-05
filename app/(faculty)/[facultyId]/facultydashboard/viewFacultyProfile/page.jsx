@@ -1,124 +1,153 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'next/navigation';
-import { FaUser, FaIdBadge, FaAt, FaBriefcase, FaPencilAlt, FaSave, FaBook } from "react-icons/fa";
+import { FaUser, FaIdBadge, FaAt, FaBriefcase, FaBook, FaPencilAlt, FaSave } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function EditStudentProfile() {
-    const params = useParams();
-    const [profile, setProfile] = useState({
+function FacultyProfilePage() {
+    const { facultyId } = useParams();
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editProfile, setEditProfile] = useState({
         fullName: "",
         sapId: "",
         universityEmail: "",
         batches: "",
         designation: ""
     });
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-    const [isEditing, setIsEditing] = useState(false);
+    // Fetch faculty profile data
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/faculty/${facultyId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile data');
+                }
+                const data = await response.json();
+                setProfile(data);
+                setEditProfile(data);
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    // Handle form change
-    const handleChange = (e) => {
+        fetchProfile();
+    }, [facultyId]);
+
+    const handleEditChange = (e) => {
         const { name, value } = e.target;
-        setProfile((prevProfile) => ({
-            ...prevProfile,
+        setEditProfile((prev) => ({
+            ...prev,
             [name]: value,
         }));
     };
 
-    // Submit the form data to the backend
-    const handleSubmit = async (e) => {
+    const handleEditSubmit = async (e) => {
         e.preventDefault();
+        setShowConfirmModal(true);
+    };
 
+    const confirmSaveChanges = async () => {
         try {
-            const res = await fetch("http://localhost:5000/api/faculty/add", {
-                method: "POST",
+            const response = await fetch(`http://localhost:5000/api/faculty/update/${facultyId}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(profile), // Send profile data
+                body: JSON.stringify(editProfile),
             });
 
-            if (res.ok) {
-                alert("Profile data sent to MongoDB successfully!");
+            if (response.ok) {
+                const updatedProfile = await response.json();
+                setProfile(updatedProfile);
+                toast.success("Profile updated successfully!");
+                setIsEditing(false);
             } else {
-                alert("Error sending data");
+                toast.error("Error updating profile");
             }
         } catch (error) {
-            console.error("Error:", error);
-            alert("Error sending data", error);
+            console.error("Error updating profile:", error);
+            toast.error("Error updating profile");
+        } finally {
+            setShowConfirmModal(false);
         }
     };
 
+    if (loading) {
+        return <p className="text-center text-lg font-semibold">Loading...</p>;
+    }
+
+    if (!profile) {
+        return <p className="text-center text-lg font-semibold">No profile found.</p>;
+    }
+
     return (
-        <section className="bg-gray-100 min-h-screen py-12 px-4">
-            <div className="container mx-auto max-w-3xl bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-3xl font-bold text-red-900">{params.facultyId}</h1>
-                    <button
-                        onClick={() => setIsEditing(!isEditing)}
-                        className="bg-red-900 text-white py-2 px-4 rounded-lg flex items-center shadow-md hover:bg-red-800 transition duration-300"
+        <section className="bg-gray-50 min-h-screen py-12 px-4">
+            <ToastContainer />
+            <div className="container mx-auto max-w-4xl bg-white p-10 rounded-xl shadow-lg border border-gray-200">
+                <div className="flex items-center mb-6">
+                    <div 
+                        className="w-32 h-32 rounded-full border-4 border-red-800 flex justify-center items-center text-white text-4xl font-bold"
+                        style={{ backgroundColor: '#D3D3D3' }} // Gray background for avatar
                     >
-                        <FaPencilAlt className="mr-2" />
-                        {isEditing ? "View Profile" : "Edit Profile"}
-                    </button>
+                        {profile.fullName.split(' ')[0][0]}{profile.fullName.split(' ').pop()[0]}
+                    </div>
+                    <h1 className="text-5xl font-bold text-black ml-6">{profile.fullName}</h1>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Full Name */}
-                        <div className="flex items-center border border-gray-300 rounded-lg p-4 bg-gradient-to-r from-gray-50 to-red-50 shadow-sm hover:shadow-md transition-shadow duration-300">
-                            <FaUser className="text-red-900 mr-3" />
+                {isEditing ? (
+                    <form onSubmit={handleEditSubmit} className="space-y-6 mt-6">
+                        <div className="flex items-center border-b border-gray-300 pb-2 mb-4">
+                            <FaUser className="text-red-800 mr-3 text-2xl" />
                             <input
                                 type="text"
                                 name="fullName"
-                                value={profile.fullName}
-                                onChange={handleChange}
-                                disabled={!isEditing}
+                                value={editProfile.fullName}
+                                onChange={handleEditChange}
                                 placeholder="Full Name"
-                                className="w-full bg-transparent border-none focus:outline-none text-gray-700 placeholder-gray-400"
+                                className="w-full border-none focus:ring-0 focus:outline-none text-lg py-3"
                                 required
                             />
                         </div>
-
-                        {/* SAP ID */}
-                        <div className="flex items-center border border-gray-300 rounded-lg p-4 bg-gradient-to-r from-gray-50 to-red-50 shadow-sm hover:shadow-md transition-shadow duration-300">
-                            <FaIdBadge className="text-red-900 mr-3" />
+                        <div className="flex items-center border-b border-gray-300 pb-2 mb-4">
+                            <FaIdBadge className="text-red-800 mr-3 text-2xl" />
                             <input
                                 type="text"
                                 name="sapId"
-                                value={profile.sapId}
-                                onChange={handleChange}
-                                disabled={!isEditing}
+                                value={editProfile.sapId}
+                                onChange={handleEditChange}
                                 placeholder="SAP ID"
-                                className="w-full bg-transparent border-none focus:outline-none text-gray-700 placeholder-gray-400"
+                                className="w-full border-none focus:ring-0 focus:outline-none text-lg py-3"
                                 required
+                                disabled
                             />
                         </div>
-
-                        {/* University Email */}
-                        <div className="flex items-center border border-gray-300 rounded-lg p-4 bg-gradient-to-r from-gray-50 to-red-50 shadow-sm hover:shadow-md transition-shadow duration-300">
-                            <FaAt className="text-red-900 mr-3" />
+                        <div className="flex items-center border-b border-gray-300 pb-2 mb-4">
+                            <FaAt className="text-red-800 mr-3 text-2xl" />
                             <input
                                 type="email"
                                 name="universityEmail"
-                                value={profile.universityEmail}
-                                onChange={handleChange}
-                                disabled={!isEditing}
+                                value={editProfile.universityEmail}
+                                onChange={handleEditChange}
                                 placeholder="University Email"
-                                className="w-full bg-transparent border-none focus:outline-none text-gray-700 placeholder-gray-400"
+                                className="w-full border-none focus:ring-0 focus:outline-none text-lg py-3"
                                 required
                             />
                         </div>
-
-                        {/* Designation */}
-                        <div className="flex items-center border border-gray-300 rounded-lg p-4 bg-gradient-to-r from-gray-50 to-red-50 shadow-sm hover:shadow-md transition-shadow duration-300">
-                            <FaBriefcase className="text-red-900 mr-3" />
+                        <div className="flex items-center mb-4">
+                            <FaBriefcase className="text-red-800 mr-3 text-2xl" />
                             <select
                                 name="designation"
-                                value={profile.designation}
-                                onChange={handleChange}
-                                disabled={!isEditing}
-                                className="w-full bg-transparent border-none focus:outline-none text-gray-700"
+                                value={editProfile.designation}
+                                onChange={handleEditChange}
+                                className="w-full border border-gray-300 rounded-md py-3 text-lg focus:outline-none focus:ring focus:ring-red-500"
                                 required
                             >
                                 <option value="">Select Designation</option>
@@ -128,38 +157,75 @@ function EditStudentProfile() {
                                 <option value="Professor">Professor</option>
                             </select>
                         </div>
-
-                        {/* Batches */}
-                        <div className="flex items-center border border-gray-300 rounded-lg p-4 bg-gradient-to-r from-gray-50 to-red-50 shadow-sm hover:shadow-md transition-shadow duration-300">
-                            <FaBook className="text-red-900 mr-3" />
+                        <div className="flex items-center border-b border-gray-300 pb-2 mb-4">
+                            <FaBook className="text-red-800 mr-3 text-2xl" />
                             <input
                                 type="text"
                                 name="batches"
-                                value={profile.batches}
-                                onChange={handleChange}
-                                disabled={!isEditing}
+                                value={editProfile.batches}
+                                onChange={handleEditChange}
                                 placeholder="Batches"
-                                className="w-full bg-transparent border-none focus:outline-none text-gray-700 placeholder-gray-400"
+                                className="w-full border-none focus:ring-0 focus:outline-none text-lg py-3"
                                 required
                             />
                         </div>
-                    </div>
-
-                    {isEditing && (
-                        <div className="text-center mt-6">
+                        <div className="flex items-center mb-4">
                             <button
                                 type="submit"
-                                className="bg-red-900 text-white py-2 px-6 rounded-lg shadow-lg flex items-center justify-center mx-auto hover:bg-red-800 transition duration-300 transform hover:scale-105"
+                                className="bg-red-800 text-white py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition duration-300 flex items-center text-lg"
                             >
                                 <FaSave className="mr-2" />
                                 Save Changes
                             </button>
                         </div>
-                    )}
-                </form>
+                    </form>
+                ) : (
+                    <div className="mt-6 space-y-4">
+                        <div className="flex items-center">
+                            <FaUser className="text-red-800 mr-3 text-2xl" />
+                            <span className="text-xl">{profile.fullName}</span>
+                        </div>
+                        <div className="flex items-center">
+                            <FaIdBadge className="text-red-800 mr-3 text-2xl" />
+                            <span className="text-xl">SAP ID: {profile.sapId}</span>
+                        </div>
+                        <div className="flex items-center">
+                            <FaAt className="text-red-800 mr-3 text-2xl" />
+                            <span className="text-xl">Email: {profile.universityEmail}</span>
+                        </div>
+                        <div className="flex items-center">
+                            <FaBriefcase className="text-red-800 mr-3 text-2xl" />
+                            <span className="text-xl">Designation: {profile.designation}</span>
+                        </div>
+                        <div className="flex items-center">
+                            <FaBook className="text-red-800 mr-3 text-2xl" />
+                            <span className="text-xl">Batches: {profile.batches}</span>
+                        </div>
+                    </div>
+                )}
+
+                <button
+                    onClick={() => setIsEditing(!isEditing)}
+                    className="mt-8 bg-red-800 text-white py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition duration-300 flex items-center text-lg"
+                >
+                    <FaPencilAlt className="mr-2" />
+                    {isEditing ? "Cancel" : "Edit Profile"}
+                </button>
             </div>
+
+            {/* Confirmation Modal */}
+            {showConfirmModal && (
+                <div className="fixed inset-0 bg-red-100 bg-opacity-80 flex justify-center items-center">
+                    <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+                        <h3 className="text-lg font-semibold mb-4">Are you sure you want to save changes?</h3>
+                        <p className="mb-4">Please confirm your changes before proceeding.</p>
+                        <button onClick={confirmSaveChanges} className="bg-blue-900 text-white py-2 px-4 rounded-lg mr-2 hover:bg-blue-800">Yes, Save</button>
+                        <button onClick={() => setShowConfirmModal(false)} className="bg-red-800 text-white py-2 px-4 rounded-lg hover:bg-red-700">Cancel</button>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
 
-export default EditStudentProfile;
+export default FacultyProfilePage;

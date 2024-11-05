@@ -4,6 +4,8 @@
 
 
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation'
+
 import { useState } from "react";
 import Image from "next/image";
 import axios from 'axios';
@@ -17,28 +19,33 @@ function FacultyProfile() {
   const [showProfile, setShowProfile] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const router = useRouter()
 
 
   const handleConfirmSubmission = async () => {
     setShowConfirmation(false);
     setIsSubmitted(true);
     setShowProfile(false);
-  
+
     const facultyData = {
-      fullName,
-      sapId,
-      designation,
-      universityEmail,
-      batches,
+        fullName,
+        sapId,
+        designation,
+        universityEmail,
+        batches,
     };
-  
+
+    console.log('Submitting faculty data:', facultyData); // Debug log
+
     try {
-      const response = await axios.post('http://localhost:5000/api/faculty', facultyData); // Adjust the URL if necessary
-      console.log(response.data); // Handle success response
+        const response = await axios.post('http://localhost:5000/api/faculty/add', facultyData);
+        console.log('Response:', response.data); // Handle success response
     } catch (error) {
-      console.error('Error submitting faculty data:', error);
+        console.error('Error submitting faculty data:', error.response ? error.response.data : error.message);
+        alert('Error saving data. Please try again.'); // Provide user feedback
     }
-  };
+};
+
   
   const handleViewProfile = (e) => {
     e.preventDefault();
@@ -48,6 +55,8 @@ function FacultyProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowConfirmation(true);
+    router.push(`/${sapId}/facultydashboard/viewfacultyprofile`);
+
   };
 
 
@@ -55,10 +64,16 @@ function FacultyProfile() {
     setShowConfirmation(false);
   };
 
+
+
+
   const handleEdit = () => {
     setShowProfile(false);
     setIsSubmitted(false);
   };
+
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-light-red">
@@ -301,3 +316,4 @@ function FacultyProfile() {
 }
 
 export default FacultyProfile;
+
