@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
             </li>
             <li>
               <Link href="/questionsbank" className="flex items-center text-gray-700 hover:text-red-600">
-                <FiDatabase className="mr-2" /> Questions Bank
+                <FiDatabase className="mr-2" /> Upcoming Observations
               </Link>
             </li>
             <li>

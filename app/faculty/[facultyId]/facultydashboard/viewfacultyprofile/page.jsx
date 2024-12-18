@@ -206,7 +206,7 @@ function FacultyProfilePage() {
 
                 <button
                     onClick={() => setIsEditing(!isEditing)}
-                    className="mt-8 bg-red-800 text-white py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition duration-300 flex items-center text-lg"
+                    className="mt-8 bg-blue-900 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-800 transition duration-300 flex items-center text-lg"
                 >
                     <FaPencilAlt className="mr-2" />
                     {isEditing ? "Cancel" : "Edit Profile"}
@@ -219,8 +219,8 @@ function FacultyProfilePage() {
                     <div className="bg-white p-6 rounded-lg shadow-lg text-center">
                         <h3 className="text-lg font-semibold mb-4">Are you sure you want to save changes?</h3>
                         <p className="mb-4">Please confirm your changes before proceeding.</p>
-                        <button onClick={confirmSaveChanges} className="bg-blue-900 text-white py-2 px-4 rounded-lg mr-2 hover:bg-blue-800">Yes, Save</button>
-                        <button onClick={() => setShowConfirmModal(false)} className="bg-red-800 text-white py-2 px-4 rounded-lg hover:bg-red-700">Cancel</button>
+                        <button onClick={confirmSaveChanges} className="bg-blue-900 text-white py-2 px-4 rounded-lg mr-2 mx-6  hover:bg-blue-800">Yes, Save</button>
+                        <button onClick={() => setShowConfirmModal(false)} className="bg-red-900 text-white py-2 px-4 mx-6 rounded-lg hover:bg-red-800">Cancel</button>
                     </div>
                 </div>
             )}

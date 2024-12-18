@@ -99,7 +99,7 @@ export default function Navbar() {
                       </div>
                     </button>
                     <span className="text-sm text-gray-900 font-semibold mt-2">
-                      Continue as Member
+                      Continue as Student
                     </span>
                   </div>
                   <button
